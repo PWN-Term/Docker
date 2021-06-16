@@ -4311,7 +4311,7 @@ type NodeSystemInfo struct {
 	BootID string `json:"bootID" protobuf:"bytes,3,opt,name=bootID"`
 	// Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).
 	KernelVersion string `json:"kernelVersion" protobuf:"bytes,4,opt,name=kernelVersion"`
-	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
+	// OS Image reported by the node from /data/data/hilled.pwnterm/files/usr/etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OSImage string `json:"osImage" protobuf:"bytes,5,opt,name=osImage"`
 	// ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
 	ContainerRuntimeVersion string `json:"containerRuntimeVersion" protobuf:"bytes,6,opt,name=containerRuntimeVersion"`

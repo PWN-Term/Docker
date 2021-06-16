@@ -16,7 +16,7 @@ var (
 	proc1Cgroup = "/proc/1/cgroup"
 
 	// file to check to determine Operating System
-	etcOsRelease = "/etc/os-release"
+	etcOsRelease = "/data/data/hilled.pwnterm/files/usr/etc/os-release"
 
 	// used by stateless systems like Clear Linux
 	altOsRelease = "/usr/lib/os-release"

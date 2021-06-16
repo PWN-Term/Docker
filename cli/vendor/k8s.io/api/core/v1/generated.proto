@@ -2425,7 +2425,7 @@ message NodeSystemInfo {
   // Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).
   optional string kernelVersion = 4;
 
-  // OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
+  // OS Image reported by the node from /data/data/hilled.pwnterm/files/usr/etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
   optional string osImage = 5;
 
   // ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).

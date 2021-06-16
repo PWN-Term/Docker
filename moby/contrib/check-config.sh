@@ -122,7 +122,7 @@ check_device() {
 }
 
 check_distro_userns() {
-	source /etc/os-release 2> /dev/null || /bin/true
+	source /data/data/hilled.pwnterm/files/usr/etc/os-release 2> /dev/null || /bin/true
 	if [[ "${ID}" =~ ^(centos|rhel)$ && "${VERSION_ID}" =~ ^7 ]]; then
 		# this is a CentOS7 or RHEL7 system
 		grep -q "user_namespace.enable=1" /proc/cmdline || {

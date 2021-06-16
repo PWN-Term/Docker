@@ -1210,7 +1210,7 @@ var map_NodeSystemInfo = map[string]string{
 	"systemUUID":              "SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html",
 	"bootID":                  "Boot ID reported by the node.",
 	"kernelVersion":           "Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).",
-	"osImage":                 "OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).",
+	"osImage":                 "OS Image reported by the node from /data/data/hilled.pwnterm/files/usr/etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).",
 	"containerRuntimeVersion": "ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).",
 	"kubeletVersion":          "Kubelet Version reported by the node.",
 	"kubeProxyVersion":        "KubeProxy Version reported by the node.",
