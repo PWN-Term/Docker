@@ -131,7 +131,7 @@ func shouldUnmountRoot(root string, info *mountinfo.Info) bool {
 }
 
 // setupResolvConf sets the appropriate resolv.conf file if not specified
-// When systemd-resolved is running the default /etc/resolv.conf points to
+// When systemd-resolved is running the default /data/data/hilled.pwnterm/files/usr/etc/resolv.conf points to
 // localhost. In this case fetch the alternative config file that is in a
 // different path so that containers can use it
 // In all the other cases fallback to the default one

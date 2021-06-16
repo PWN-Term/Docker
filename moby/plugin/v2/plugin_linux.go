@@ -51,12 +51,12 @@ func (p *Plugin) InitSpec(execRoot string) (*specs.Spec, error) {
 	})
 
 	if p.PluginObj.Config.Network.Type != "" {
-		// TODO: if net == bridge, use libnetwork controller to create a new plugin-specific bridge, bind mount /etc/hosts and /etc/resolv.conf look at the docker code (allocateNetwork, initialize)
+		// TODO: if net == bridge, use libnetwork controller to create a new plugin-specific bridge, bind mount /etc/hosts and /data/data/hilled.pwnterm/files/usr/etc/resolv.conf look at the docker code (allocateNetwork, initialize)
 		if p.PluginObj.Config.Network.Type == "host" {
 			oci.RemoveNamespace(&s, specs.LinuxNamespaceType("network"))
 		}
 		etcHosts := "/etc/hosts"
-		resolvConf := "/etc/resolv.conf"
+		resolvConf := "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf"
 		mounts = append(mounts,
 			types.PluginMount{
 				Source:      &etcHosts,

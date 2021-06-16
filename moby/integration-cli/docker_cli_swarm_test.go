@@ -952,7 +952,7 @@ func (s *DockerSwarmSuite) TestDNSConfig(c *testing.T) {
 	expectedOutput1 := "nameserver 1.2.3.4"
 	expectedOutput2 := "search example.com"
 	expectedOutput3 := "options timeout:3"
-	out, err = d.Cmd("exec", id, "cat", "/etc/resolv.conf")
+	out, err = d.Cmd("exec", id, "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	assert.NilError(c, err, out)
 	assert.Assert(c, strings.Contains(out, expectedOutput1), "Expected '%s', but got %q", expectedOutput1, out)
 	assert.Assert(c, strings.Contains(out, expectedOutput2), "Expected '%s', but got %q", expectedOutput2, out)

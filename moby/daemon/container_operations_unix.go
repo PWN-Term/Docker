@@ -391,25 +391,25 @@ func serviceDiscoveryOnDefaultNetwork() bool {
 func (daemon *Daemon) setupPathsAndSandboxOptions(container *container.Container, sboxOptions *[]libnetwork.SandboxOption) error {
 	var err error
 
-	// Set the correct paths for /etc/hosts and /etc/resolv.conf, based on the
+	// Set the correct paths for /etc/hosts and /data/data/hilled.pwnterm/files/usr/etc/resolv.conf, based on the
 	// networking-mode of the container. Note that containers with "container"
 	// networking are already handled in "initializeNetworking()" before we reach
 	// this function, so do not have to be accounted for here.
 	switch {
 	case container.HostConfig.NetworkMode.IsHost():
 		// In host-mode networking, the container does not have its own networking
-		// namespace, so both `/etc/hosts` and `/etc/resolv.conf` should be the same
+		// namespace, so both `/etc/hosts` and `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf` should be the same
 		// as on the host itself. The container gets a copy of these files.
 		*sboxOptions = append(
 			*sboxOptions,
 			libnetwork.OptionOriginHostsPath("/etc/hosts"),
-			libnetwork.OptionOriginResolvConfPath("/etc/resolv.conf"),
+			libnetwork.OptionOriginResolvConfPath("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf"),
 		)
 	case container.HostConfig.NetworkMode.IsUserDefined():
 		// The container uses a user-defined network. We use the embedded DNS
 		// server for container name resolution and to act as a DNS forwarder
 		// for external DNS resolution.
-		// We parse the DNS server(s) that are defined in /etc/resolv.conf on
+		// We parse the DNS server(s) that are defined in /data/data/hilled.pwnterm/files/usr/etc/resolv.conf on
 		// the host, which may be a local DNS server (for example, if DNSMasq or
 		// systemd-resolvd are in use). The embedded DNS server forwards DNS
 		// resolution to the DNS server configured on the host, which in itself
@@ -419,7 +419,7 @@ func (daemon *Daemon) setupPathsAndSandboxOptions(container *container.Container
 		// directly, as they can be dynamically reconfigured.
 		*sboxOptions = append(
 			*sboxOptions,
-			libnetwork.OptionOriginResolvConfPath("/etc/resolv.conf"),
+			libnetwork.OptionOriginResolvConfPath("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf"),
 		)
 	default:
 		// For other situations, such as the default bridge network, container
@@ -432,7 +432,7 @@ func (daemon *Daemon) setupPathsAndSandboxOptions(container *container.Container
 		// container are not updated after the container is created, but the
 		// DNS servers on the host can be dynamically updated.
 		//
-		// Copy the host's resolv.conf for the container (/run/systemd/resolve/resolv.conf or /etc/resolv.conf)
+		// Copy the host's resolv.conf for the container (/run/systemd/resolve/resolv.conf or /data/data/hilled.pwnterm/files/usr/etc/resolv.conf)
 		*sboxOptions = append(
 			*sboxOptions,
 			libnetwork.OptionOriginResolvConfPath(daemon.configStore.GetResolvConf()),

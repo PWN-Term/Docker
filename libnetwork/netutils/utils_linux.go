@@ -111,7 +111,7 @@ func ElectInterfaceAddresses(name string) ([]*net.IPNet, []*net.IPNet, error) {
 // overlap with existing interfaces in the system
 func FindAvailableNetwork(list []*net.IPNet) (*net.IPNet, error) {
 	// We don't check for an error here, because we don't really care if we
-	// can't read /etc/resolv.conf. So instead we skip the append if resolvConf
+	// can't read /data/data/hilled.pwnterm/files/usr/etc/resolv.conf. So instead we skip the append if resolvConf
 	// is nil. It either doesn't exist, or we can't read it for some reason.
 	var nameservers []string
 	if rc, err := resolvconf.Get(); err == nil {

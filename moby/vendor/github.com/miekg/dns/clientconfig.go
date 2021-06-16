@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// ClientConfig wraps the contents of the /etc/resolv.conf file.
+// ClientConfig wraps the contents of the /data/data/hilled.pwnterm/files/usr/etc/resolv.conf file.
 type ClientConfig struct {
 	Servers  []string // servers to use
 	Search   []string // suffixes to append to local name

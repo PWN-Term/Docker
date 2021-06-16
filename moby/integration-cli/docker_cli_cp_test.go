@@ -386,8 +386,8 @@ func (s *DockerSuite) TestCpSpecialFiles(c *testing.T) {
 	out, _ = dockerCmd(c, "wait", containerID)
 	assert.Equal(c, strings.TrimSpace(out), "0", "failed to set up container")
 
-	// Copy actual /etc/resolv.conf
-	dockerCmd(c, "cp", containerID+":/etc/resolv.conf", outDir)
+	// Copy actual /data/data/hilled.pwnterm/files/usr/etc/resolv.conf
+	dockerCmd(c, "cp", containerID+":/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", outDir)
 
 	expected := readContainerFile(c, containerID, "resolv.conf")
 	actual, err := ioutil.ReadFile(outDir + "/resolv.conf")
@@ -402,7 +402,7 @@ func (s *DockerSuite) TestCpSpecialFiles(c *testing.T) {
 	assert.NilError(c, err)
 	assert.Assert(c, bytes.Equal(actual, expected), "Expected copied file to be duplicate of the container hosts")
 
-	// Copy actual /etc/resolv.conf
+	// Copy actual /data/data/hilled.pwnterm/files/usr/etc/resolv.conf
 	dockerCmd(c, "cp", containerID+":/etc/hostname", outDir)
 
 	expected = readContainerFile(c, containerID, "hostname")

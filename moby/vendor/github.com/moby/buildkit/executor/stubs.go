@@ -10,7 +10,7 @@ import (
 )
 
 func MountStubsCleaner(dir string, mounts []Mount) func() {
-	names := []string{"/etc/resolv.conf", "/etc/hosts"}
+	names := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hosts"}
 
 	for _, m := range mounts {
 		names = append(names, m.Dest)

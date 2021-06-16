@@ -18,7 +18,7 @@ import (
 
 // setupMounts iterates through each of the mount points for a container and
 // calls Setup() on each. It also looks to see if is a network mount such as
-// /etc/resolv.conf, and if it is not, appends it to the array of mounts.
+// /data/data/hilled.pwnterm/files/usr/etc/resolv.conf, and if it is not, appends it to the array of mounts.
 func (daemon *Daemon) setupMounts(c *container.Container) ([]container.Mount, error) {
 	var mounts []container.Mount
 	// TODO: tmpfs mounts should be part of Mountpoints
@@ -97,7 +97,7 @@ func (daemon *Daemon) setupMounts(c *container.Container) ([]container.Mount, er
 
 // sortMounts sorts an array of mounts in lexicographic order. This ensure that
 // when mounting, the mounts don't shadow other mounts. For example, if mounting
-// /etc and /etc/resolv.conf, /etc/resolv.conf must not be mounted first.
+// /etc and /data/data/hilled.pwnterm/files/usr/etc/resolv.conf, /data/data/hilled.pwnterm/files/usr/etc/resolv.conf must not be mounted first.
 func sortMounts(m []container.Mount) []container.Mount {
 	sort.Sort(mounts(m))
 	return m

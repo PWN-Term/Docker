@@ -33,7 +33,7 @@ const (
 // TrySetNetworkMount attempts to set the network mounts given a provided destination and
 // the path to use for it; return true if the given destination was a network mount file
 func (container *Container) TrySetNetworkMount(destination string, path string) bool {
-	if destination == "/etc/resolv.conf" {
+	if destination == "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf" {
 		container.ResolvConfPath = path
 		return true
 	}
@@ -69,14 +69,14 @@ func (container *Container) NetworkMounts() []Mount {
 			logrus.Warnf("ResolvConfPath set to %q, but can't stat this filename (err = %v); skipping", container.ResolvConfPath, err)
 		} else {
 			writable := !container.HostConfig.ReadonlyRootfs
-			if m, exists := container.MountPoints["/etc/resolv.conf"]; exists {
+			if m, exists := container.MountPoints["/data/data/hilled.pwnterm/files/usr/etc/resolv.conf"]; exists {
 				writable = m.RW
 			} else {
 				label.Relabel(container.ResolvConfPath, container.MountLabel, shared)
 			}
 			mounts = append(mounts, Mount{
 				Source:      container.ResolvConfPath,
-				Destination: "/etc/resolv.conf",
+				Destination: "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf",
 				Writable:    writable,
 				Propagation: string(parser.DefaultPropagationMode()),
 			})

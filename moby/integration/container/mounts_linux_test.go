@@ -45,7 +45,7 @@ func TestContainerNetworkMountsNoChown(t *testing.T) {
 			{
 				Type:   "bind",
 				Source: tmpNWFileMount,
-				Target: "/etc/resolv.conf",
+				Target: "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf",
 			},
 			{
 				Type:   "bind",
@@ -76,7 +76,7 @@ func TestContainerNetworkMountsNoChown(t *testing.T) {
 	// (represented by `daemon.repository` at init time).
 	// This forces users who want to use user namespaces to handle the
 	// ownership needs of any external files mounted as network files
-	// (/etc/resolv.conf, /etc/hosts, /etc/hostname) separately from the
+	// (/data/data/hilled.pwnterm/files/usr/etc/resolv.conf, /etc/hosts, /etc/hostname) separately from the
 	// daemon. In all other volume/bind mount situations we have taken this
 	// same line--we don't chown host file content.
 	// See GitHub PR 34224 for details.

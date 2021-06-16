@@ -1,4 +1,4 @@
-// Package resolvconf provides utility code to query and update DNS configuration in /etc/resolv.conf
+// Package resolvconf provides utility code to query and update DNS configuration in /data/data/hilled.pwnterm/files/usr/etc/resolv.conf
 package resolvconf
 
 import (
@@ -16,7 +16,7 @@ import (
 
 const (
 	// defaultPath is the default path to the resolv.conf that contains information to resolve DNS. See Path().
-	defaultPath = "/etc/resolv.conf"
+	defaultPath = "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf"
 	// alternatePath is a path different from defaultPath, that may be used to resolve DNS. See Path().
 	alternatePath = "/run/systemd/resolve/resolv.conf"
 )
@@ -28,15 +28,15 @@ var (
 
 // Path returns the path to the resolv.conf file that libnetwork should use.
 //
-// When /etc/resolv.conf contains 127.0.0.53 as the only nameserver, then
+// When /data/data/hilled.pwnterm/files/usr/etc/resolv.conf contains 127.0.0.53 as the only nameserver, then
 // it is assumed systemd-resolved manages DNS. Because inside the container 127.0.0.53
 // is not a valid DNS server, Path() returns /run/systemd/resolve/resolv.conf
 // which is the resolv.conf that systemd-resolved generates and manages.
-// Otherwise Path() returns /etc/resolv.conf.
+// Otherwise Path() returns /data/data/hilled.pwnterm/files/usr/etc/resolv.conf.
 //
 // Errors are silenced as they will inevitably resurface at future open/read calls.
 //
-// More information at https://www.freedesktop.org/software/systemd/man/systemd-resolved.service.html#/etc/resolv.conf
+// More information at https://www.freedesktop.org/software/systemd/man/systemd-resolved.service.html#/data/data/hilled.pwnterm/files/usr/etc/resolv.conf
 func Path() string {
 	detectSystemdResolvConfOnce.Do(func() {
 		candidateResolvConf, err := ioutil.ReadFile(defaultPath)
@@ -87,7 +87,7 @@ type File struct {
 	Hash    string
 }
 
-// Get returns the contents of /etc/resolv.conf and its hash
+// Get returns the contents of /data/data/hilled.pwnterm/files/usr/etc/resolv.conf and its hash
 func Get() (*File, error) {
 	return GetSpecific(Path())
 }
@@ -105,7 +105,7 @@ func GetSpecific(path string) (*File, error) {
 	return &File{Content: resolv, Hash: hash}, nil
 }
 
-// GetIfChanged retrieves the host /etc/resolv.conf file, checks against the last hash
+// GetIfChanged retrieves the host /data/data/hilled.pwnterm/files/usr/etc/resolv.conf file, checks against the last hash
 // and, if modified since last check, returns the bytes and new hash.
 // This feature is used by the resolv.conf updater for containers
 func GetIfChanged() (*File, error) {
@@ -184,7 +184,7 @@ func getLines(input []byte, commentMarker []byte) [][]byte {
 	return output
 }
 
-// GetNameservers returns nameservers (if any) listed in /etc/resolv.conf
+// GetNameservers returns nameservers (if any) listed in /data/data/hilled.pwnterm/files/usr/etc/resolv.conf
 func GetNameservers(resolvConf []byte, kind int) []string {
 	nameservers := []string{}
 	for _, line := range getLines(resolvConf, []byte("#")) {
@@ -204,7 +204,7 @@ func GetNameservers(resolvConf []byte, kind int) []string {
 }
 
 // GetNameserversAsCIDR returns nameservers (if any) listed in
-// /etc/resolv.conf as CIDR blocks (e.g., "1.2.3.4/32")
+// /data/data/hilled.pwnterm/files/usr/etc/resolv.conf as CIDR blocks (e.g., "1.2.3.4/32")
 // This function's output is intended for net.ParseCIDR
 func GetNameserversAsCIDR(resolvConf []byte) []string {
 	nameservers := []string{}
@@ -221,7 +221,7 @@ func GetNameserversAsCIDR(resolvConf []byte) []string {
 	return nameservers
 }
 
-// GetSearchDomains returns search domains (if any) listed in /etc/resolv.conf
+// GetSearchDomains returns search domains (if any) listed in /data/data/hilled.pwnterm/files/usr/etc/resolv.conf
 // If more than one search line is encountered, only the contents of the last
 // one is returned.
 func GetSearchDomains(resolvConf []byte) []string {
@@ -236,7 +236,7 @@ func GetSearchDomains(resolvConf []byte) []string {
 	return domains
 }
 
-// GetOptions returns options (if any) listed in /etc/resolv.conf
+// GetOptions returns options (if any) listed in /data/data/hilled.pwnterm/files/usr/etc/resolv.conf
 // If more than one options line is encountered, only the contents of the last
 // one is returned.
 func GetOptions(resolvConf []byte) []string {

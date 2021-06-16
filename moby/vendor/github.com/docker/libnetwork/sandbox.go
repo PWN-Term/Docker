@@ -112,7 +112,7 @@ type extraHost struct {
 	IP   string
 }
 
-// These are the container configs used to customize container /etc/resolv.conf file.
+// These are the container configs used to customize container /data/data/hilled.pwnterm/files/usr/etc/resolv.conf file.
 type resolvConfPathConfig struct {
 	resolvConfPath       string
 	originResolvConfPath string

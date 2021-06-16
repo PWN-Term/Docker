@@ -1143,7 +1143,7 @@ installing docker, please make sure to update them accordingly.
 - Fix bug that was returning an HTTP 500 instead of a 400 when not specifying a command on run/create [#22762](https://github.com/docker/docker/pull/22762)
 - Fix bug with `--detach-keys` whereby input matching a prefix of the detach key was not preserved [#22943](https://github.com/docker/docker/pull/22943)
 - SELinux labeling is now disabled when using `--privileged` mode [#22993](https://github.com/docker/docker/pull/22993)
-- If volume-mounted into a container, `/etc/hosts`, `/etc/resolv.conf`, `/etc/hostname` are no longer SELinux-relabeled [#22993](https://github.com/docker/docker/pull/22993)
+- If volume-mounted into a container, `/etc/hosts`, `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf`, `/etc/hostname` are no longer SELinux-relabeled [#22993](https://github.com/docker/docker/pull/22993)
 - Fix inconsistency in `--tmpfs` behavior regarding mount options [#22438](https://github.com/docker/docker/pull/22438)
 - Fix an issue where daemon hangs at startup [#23148](https://github.com/docker/docker/pull/23148)
 - Ignore SIGPIPE events to prevent journald restarts to crash docker in some cases [#22460](https://github.com/docker/docker/pull/22460)
@@ -2020,7 +2020,7 @@ by another client (#15489)
 + The `docker run` command can take the `--read-only` flag to make the container’s root filesystem mounted as readonly, which can be used in combination with volumes to force a container’s processes to only write to locations that will be persisted
 + Container total memory usage can be limited for `docker run` using the `--memory-swap` flag
 * Major stability improvements for devicemapper storage driver
-* Better integration with host system: containers will reflect changes to the host's `/etc/resolv.conf` file when restarted
+* Better integration with host system: containers will reflect changes to the host's `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf` file when restarted
 * Better integration with host system: per-container iptable rules are moved to the DOCKER chain
 - Fixed container exiting on out of memory to return an invalid exit code
 
@@ -2111,7 +2111,7 @@ by another client (#15489)
 ## 1.2.0 (2014-08-20)
 
 #### Runtime
-+ Make /etc/hosts /etc/resolv.conf and /etc/hostname editable at runtime
++ Make /etc/hosts /data/data/hilled.pwnterm/files/usr/etc/resolv.conf and /etc/hostname editable at runtime
 + Auto-restart containers using policies
 + Use /var/lib/docker/tmp for large temporary files
 + `--cap-add` and `--cap-drop` to tweak what linux capability you want

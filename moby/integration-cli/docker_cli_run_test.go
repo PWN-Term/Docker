@@ -1254,13 +1254,13 @@ func (s *DockerSuite) TestRunDNSDefaultOptions(c *testing.T) {
 	testRequires(c, testEnv.IsLocalDaemon, DaemonIsLinux)
 
 	// preserve original resolv.conf for restoring after test
-	origResolvConf, err := ioutil.ReadFile("/etc/resolv.conf")
+	origResolvConf, err := ioutil.ReadFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if os.IsNotExist(err) {
-		c.Fatalf("/etc/resolv.conf does not exist")
+		c.Fatalf("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf does not exist")
 	}
 	// defer restored original conf
 	defer func() {
-		if err := ioutil.WriteFile("/etc/resolv.conf", origResolvConf, 0644); err != nil {
+		if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", origResolvConf, 0644); err != nil {
 			c.Fatal(err)
 		}
 	}()
@@ -1269,11 +1269,11 @@ func (s *DockerSuite) TestRunDNSDefaultOptions(c *testing.T) {
 	// 2 are removed from the file at container start, and the 3rd (commented out) one is ignored by
 	// GetNameservers(), leading to a replacement of nameservers with the default set
 	tmpResolvConf := []byte("nameserver 127.0.0.1\n#nameserver 127.0.2.1\nnameserver ::1")
-	if err := ioutil.WriteFile("/etc/resolv.conf", tmpResolvConf, 0644); err != nil {
+	if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", tmpResolvConf, 0644); err != nil {
 		c.Fatal(err)
 	}
 
-	actual, _ := dockerCmd(c, "run", "busybox", "cat", "/etc/resolv.conf")
+	actual, _ := dockerCmd(c, "run", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	// check that the actual defaults are appended to the commented out
 	// localhost resolver (which should be preserved)
 	// NOTE: if we ever change the defaults from google dns, this will break
@@ -1287,7 +1287,7 @@ func (s *DockerSuite) TestRunDNSOptions(c *testing.T) {
 	// Not applicable on Windows as Windows does not support --dns*, or
 	// the Unix-specific functionality of resolv.conf.
 	testRequires(c, DaemonIsLinux)
-	result := cli.DockerCmd(c, "run", "--dns=127.0.0.1", "--dns-search=mydomain", "--dns-opt=ndots:9", "busybox", "cat", "/etc/resolv.conf")
+	result := cli.DockerCmd(c, "run", "--dns=127.0.0.1", "--dns-search=mydomain", "--dns-opt=ndots:9", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 
 	// The client will get a warning on stderr when setting DNS to a localhost address; verify this:
 	if !strings.Contains(result.Stderr(), "Localhost DNS setting") {
@@ -1299,7 +1299,7 @@ func (s *DockerSuite) TestRunDNSOptions(c *testing.T) {
 		c.Fatalf("expected 'search mydomain nameserver 127.0.0.1 options ndots:9', but says: %q", actual)
 	}
 
-	out := cli.DockerCmd(c, "run", "--dns=1.1.1.1", "--dns-search=.", "--dns-opt=ndots:3", "busybox", "cat", "/etc/resolv.conf").Combined()
+	out := cli.DockerCmd(c, "run", "--dns=1.1.1.1", "--dns-search=.", "--dns-opt=ndots:3", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf").Combined()
 
 	actual = strings.Replace(strings.Trim(strings.Trim(out, "\r\n"), " "), "\n", " ", -1)
 	if actual != "nameserver 1.1.1.1 options ndots:3" {
@@ -1309,7 +1309,7 @@ func (s *DockerSuite) TestRunDNSOptions(c *testing.T) {
 
 func (s *DockerSuite) TestRunDNSRepeatOptions(c *testing.T) {
 	testRequires(c, DaemonIsLinux)
-	out := cli.DockerCmd(c, "run", "--dns=1.1.1.1", "--dns=2.2.2.2", "--dns-search=mydomain", "--dns-search=mydomain2", "--dns-opt=ndots:9", "--dns-opt=timeout:3", "busybox", "cat", "/etc/resolv.conf").Stdout()
+	out := cli.DockerCmd(c, "run", "--dns=1.1.1.1", "--dns=2.2.2.2", "--dns-search=mydomain", "--dns-search=mydomain2", "--dns-opt=ndots:9", "--dns-opt=timeout:3", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf").Stdout()
 
 	actual := strings.Replace(strings.Trim(out, "\r\n"), "\n", " ", -1)
 	if actual != "search mydomain mydomain2 nameserver 1.1.1.1 nameserver 2.2.2.2 options ndots:9 timeout:3" {
@@ -1321,16 +1321,16 @@ func (s *DockerSuite) TestRunDNSOptionsBasedOnHostResolvConf(c *testing.T) {
 	// Not applicable on Windows as testing Unix specific functionality
 	testRequires(c, testEnv.IsLocalDaemon, DaemonIsLinux)
 
-	origResolvConf, err := ioutil.ReadFile("/etc/resolv.conf")
+	origResolvConf, err := ioutil.ReadFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if os.IsNotExist(err) {
-		c.Fatalf("/etc/resolv.conf does not exist")
+		c.Fatalf("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf does not exist")
 	}
 
 	hostNameservers := resolvconf.GetNameservers(origResolvConf, types.IP)
 	hostSearch := resolvconf.GetSearchDomains(origResolvConf)
 
 	var out string
-	out, _ = dockerCmd(c, "run", "--dns=127.0.0.1", "busybox", "cat", "/etc/resolv.conf")
+	out, _ = dockerCmd(c, "run", "--dns=127.0.0.1", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 
 	if actualNameservers := resolvconf.GetNameservers([]byte(out), types.IP); actualNameservers[0] != "127.0.0.1" {
 		c.Fatalf("expected '127.0.0.1', but says: %q", actualNameservers[0])
@@ -1346,7 +1346,7 @@ func (s *DockerSuite) TestRunDNSOptionsBasedOnHostResolvConf(c *testing.T) {
 		}
 	}
 
-	out, _ = dockerCmd(c, "run", "--dns-search=mydomain", "busybox", "cat", "/etc/resolv.conf")
+	out, _ = dockerCmd(c, "run", "--dns-search=mydomain", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 
 	actualNameservers := resolvconf.GetNameservers([]byte(out), types.IP)
 	if len(actualNameservers) != len(hostNameservers) {
@@ -1364,24 +1364,24 @@ func (s *DockerSuite) TestRunDNSOptionsBasedOnHostResolvConf(c *testing.T) {
 
 	// test with file
 	tmpResolvConf := []byte("search example.com\nnameserver 12.34.56.78\nnameserver 127.0.0.1")
-	if err := ioutil.WriteFile("/etc/resolv.conf", tmpResolvConf, 0644); err != nil {
+	if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", tmpResolvConf, 0644); err != nil {
 		c.Fatal(err)
 	}
 	// put the old resolvconf back
 	defer func() {
-		if err := ioutil.WriteFile("/etc/resolv.conf", origResolvConf, 0644); err != nil {
+		if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", origResolvConf, 0644); err != nil {
 			c.Fatal(err)
 		}
 	}()
 
-	resolvConf, err := ioutil.ReadFile("/etc/resolv.conf")
+	resolvConf, err := ioutil.ReadFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if os.IsNotExist(err) {
-		c.Fatalf("/etc/resolv.conf does not exist")
+		c.Fatalf("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf does not exist")
 	}
 
 	hostSearch = resolvconf.GetSearchDomains(resolvConf)
 
-	out, _ = dockerCmd(c, "run", "busybox", "cat", "/etc/resolv.conf")
+	out, _ = dockerCmd(c, "run", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if actualNameservers = resolvconf.GetNameservers([]byte(out), types.IP); actualNameservers[0] != "12.34.56.78" || len(actualNameservers) != 1 {
 		c.Fatalf("expected '12.34.56.78', but has: %v", actualNameservers)
 	}
@@ -1419,8 +1419,8 @@ func (s *DockerSuite) TestRunNonRootUserResolvName(c *testing.T) {
 }
 
 // Test if container resolv.conf gets updated the next time it restarts
-// if host /etc/resolv.conf has changed. This only applies if the container
-// uses the host's /etc/resolv.conf and does not have any dns options provided.
+// if host /data/data/hilled.pwnterm/files/usr/etc/resolv.conf has changed. This only applies if the container
+// uses the host's /data/data/hilled.pwnterm/files/usr/etc/resolv.conf and does not have any dns options provided.
 func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	// Not applicable on Windows as testing unix specific functionality
 	testRequires(c, testEnv.IsLocalDaemon, DaemonIsLinux)
@@ -1430,7 +1430,7 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	tmpLocalhostResolvConf := []byte("nameserver 127.0.0.1")
 
 	// take a copy of resolv.conf for restoring after test completes
-	resolvConfSystem, err := ioutil.ReadFile("/etc/resolv.conf")
+	resolvConfSystem, err := ioutil.ReadFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if err != nil {
 		c.Fatal(err)
 	}
@@ -1438,17 +1438,17 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	// This test case is meant to test monitoring resolv.conf when it is
 	// a regular file not a bind mounc. So we unmount resolv.conf and replace
 	// it with a file containing the original settings.
-	mounted, err := mountinfo.Mounted("/etc/resolv.conf")
+	mounted, err := mountinfo.Mounted("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if err != nil {
 		c.Fatal(err)
 	}
 	if mounted {
-		icmd.RunCommand("umount", "/etc/resolv.conf").Assert(c, icmd.Success)
+		icmd.RunCommand("umount", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf").Assert(c, icmd.Success)
 	}
 
 	// cleanup
 	defer func() {
-		if err := ioutil.WriteFile("/etc/resolv.conf", resolvConfSystem, 0644); err != nil {
+		if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", resolvConfSystem, 0644); err != nil {
 			c.Fatal(err)
 		}
 	}()
@@ -1458,7 +1458,7 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	containerID1 := getIDByName(c, "first")
 
 	// replace resolv.conf with our temporary copy
-	if err := ioutil.WriteFile("/etc/resolv.conf", tmpResolvConf, 0644); err != nil {
+	if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", tmpResolvConf, 0644); err != nil {
 		c.Fatal(err)
 	}
 
@@ -1472,16 +1472,16 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	}
 
 	/*	// make a change to resolv.conf (in this case replacing our tmp copy with orig copy)
-		if err := ioutil.WriteFile("/etc/resolv.conf", resolvConfSystem, 0644); err != nil {
+		if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", resolvConfSystem, 0644); err != nil {
 						c.Fatal(err)
 								} */
 	// 2. test that a restarting container does not receive resolv.conf updates
 	//   if it modified the container copy of the starting point resolv.conf
-	dockerCmd(c, "run", "--name=second", "busybox", "sh", "-c", "echo 'search mylittlepony.com' >>/etc/resolv.conf")
+	dockerCmd(c, "run", "--name=second", "busybox", "sh", "-c", "echo 'search mylittlepony.com' >>/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	containerID2 := getIDByName(c, "second")
 
 	// make a change to resolv.conf (in this case replacing our tmp copy with orig copy)
-	if err := ioutil.WriteFile("/etc/resolv.conf", resolvConfSystem, 0644); err != nil {
+	if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", resolvConfSystem, 0644); err != nil {
 		c.Fatal(err)
 	}
 
@@ -1499,7 +1499,7 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	runningContainerID := strings.TrimSpace(out)
 
 	// replace resolv.conf
-	if err := ioutil.WriteFile("/etc/resolv.conf", tmpResolvConf, 0644); err != nil {
+	if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", tmpResolvConf, 0644); err != nil {
 		c.Fatal(err)
 	}
 
@@ -1523,7 +1523,7 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	//   host resolv.conf before updating container's resolv.conf copies
 
 	// replace resolv.conf with a localhost-only nameserver copy
-	if err = ioutil.WriteFile("/etc/resolv.conf", tmpLocalhostResolvConf, 0644); err != nil {
+	if err = ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", tmpLocalhostResolvConf, 0644); err != nil {
 		c.Fatal(err)
 	}
 
@@ -1542,7 +1542,7 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	//   of containers' resolv.conf.
 
 	// Restore the original resolv.conf
-	if err := ioutil.WriteFile("/etc/resolv.conf", resolvConfSystem, 0644); err != nil {
+	if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", resolvConfSystem, 0644); err != nil {
 		c.Fatal(err)
 	}
 
@@ -1551,11 +1551,11 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 	containerID3 := getIDByName(c, "third")
 
 	// Create a modified resolv.conf.aside and override resolv.conf with it
-	if err := ioutil.WriteFile("/etc/resolv.conf.aside", tmpResolvConf, 0644); err != nil {
+	if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf.aside", tmpResolvConf, 0644); err != nil {
 		c.Fatal(err)
 	}
 
-	err = os.Rename("/etc/resolv.conf.aside", "/etc/resolv.conf")
+	err = os.Rename("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf.aside", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if err != nil {
 		c.Fatal(err)
 	}
@@ -1804,7 +1804,7 @@ func (s *DockerSuite) TestRunWriteSpecialFilesAndNotCommit(c *testing.T) {
 
 	testRunWriteSpecialFilesAndNotCommit(c, "writehosts", "/etc/hosts")
 	testRunWriteSpecialFilesAndNotCommit(c, "writehostname", "/etc/hostname")
-	testRunWriteSpecialFilesAndNotCommit(c, "writeresolv", "/etc/resolv.conf")
+	testRunWriteSpecialFilesAndNotCommit(c, "writeresolv", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 }
 
 func testRunWriteSpecialFilesAndNotCommit(c *testing.T, name, path string) {
@@ -2152,9 +2152,9 @@ func (s *DockerSuite) TestRunCreateVolumeEtc(c *testing.T) {
 	// While Windows supports volumes, it does not support --add-host hence
 	// this test is not applicable on Windows.
 	testRequires(c, DaemonIsLinux)
-	out, _ := dockerCmd(c, "run", "--dns=127.0.0.1", "-v", "/etc", "busybox", "cat", "/etc/resolv.conf")
+	out, _ := dockerCmd(c, "run", "--dns=127.0.0.1", "-v", "/etc", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if !strings.Contains(out, "nameserver 127.0.0.1") {
-		c.Fatal("/etc volume mount hides /etc/resolv.conf")
+		c.Fatal("/etc volume mount hides /data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	}
 
 	out, _ = dockerCmd(c, "run", "-h=test123", "-v", "/etc", "busybox", "cat", "/etc/hostname")
@@ -2687,7 +2687,7 @@ func (s *DockerSuite) TestRunContainerWithReadonlyRootfs(c *testing.T) {
 	if root := os.Getenv("DOCKER_REMAP_ROOT"); root != "" {
 		testPriv = false
 	}
-	testReadOnlyFile(c, testPriv, "/file", "/etc/hosts", "/etc/resolv.conf", "/etc/hostname")
+	testReadOnlyFile(c, testPriv, "/file", "/etc/hosts", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hostname")
 }
 
 func (s *DockerSuite) TestPermissionsPtsReadonlyRootfs(c *testing.T) {
@@ -2745,9 +2745,9 @@ func (s *DockerSuite) TestRunContainerWithReadonlyRootfsWithDNSFlag(c *testing.T
 	// Not applicable on Windows which does not support either --read-only or --dns.
 	testRequires(c, DaemonIsLinux, UserNamespaceROMount)
 
-	out, _ := dockerCmd(c, "run", "--read-only", "--dns", "1.1.1.1", "busybox", "/bin/cat", "/etc/resolv.conf")
+	out, _ := dockerCmd(c, "run", "--read-only", "--dns", "1.1.1.1", "busybox", "/bin/cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if !strings.Contains(out, "1.1.1.1") {
-		c.Fatal("Expected /etc/resolv.conf to be updated even if --read-only enabled and --dns flag used")
+		c.Fatal("Expected /data/data/hilled.pwnterm/files/usr/etc/resolv.conf to be updated even if --read-only enabled and --dns flag used")
 	}
 }
 
@@ -3076,7 +3076,7 @@ func (s *DockerSuite) TestRunNetworkFilesBindMount(c *testing.T) {
 		c.Fatalf("error modifying permissions of %s: %v", filename, err)
 	}
 
-	nwfiles := []string{"/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
+	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
 
 	for i := range nwfiles {
 		actual, _ := dockerCmd(c, "run", "-v", filename+":"+nwfiles[i], "busybox", "cat", nwfiles[i])
@@ -3098,7 +3098,7 @@ func (s *DockerSuite) TestRunNetworkFilesBindMountRO(c *testing.T) {
 		c.Fatalf("error modifying permissions of %s: %v", filename, err)
 	}
 
-	nwfiles := []string{"/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
+	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
 
 	for i := range nwfiles {
 		_, exitCode, err := dockerCmdWithError("run", "-v", filename+":"+nwfiles[i]+":ro", "busybox", "touch", nwfiles[i])
@@ -3120,7 +3120,7 @@ func (s *DockerSuite) TestRunNetworkFilesBindMountROFilesystem(c *testing.T) {
 		c.Fatalf("error modifying permissions of %s: %v", filename, err)
 	}
 
-	nwfiles := []string{"/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
+	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
 
 	for i := range nwfiles {
 		_, exitCode := dockerCmd(c, "run", "-v", filename+":"+nwfiles[i], "--read-only", "busybox", "touch", nwfiles[i])
@@ -3908,30 +3908,30 @@ func (s *DockerSuite) TestRunDNSInHostMode(c *testing.T) {
 
 	expectedOutput := "nameserver 127.0.0.1"
 	expectedWarning := "Localhost DNS setting"
-	cli.DockerCmd(c, "run", "--dns=127.0.0.1", "--net=host", "busybox", "cat", "/etc/resolv.conf").Assert(c, icmd.Expected{
+	cli.DockerCmd(c, "run", "--dns=127.0.0.1", "--net=host", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf").Assert(c, icmd.Expected{
 		Out: expectedOutput,
 		Err: expectedWarning,
 	})
 
 	expectedOutput = "nameserver 1.2.3.4"
-	cli.DockerCmd(c, "run", "--dns=1.2.3.4", "--net=host", "busybox", "cat", "/etc/resolv.conf").Assert(c, icmd.Expected{
+	cli.DockerCmd(c, "run", "--dns=1.2.3.4", "--net=host", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf").Assert(c, icmd.Expected{
 		Out: expectedOutput,
 	})
 
 	expectedOutput = "search example.com"
-	cli.DockerCmd(c, "run", "--dns-search=example.com", "--net=host", "busybox", "cat", "/etc/resolv.conf").Assert(c, icmd.Expected{
+	cli.DockerCmd(c, "run", "--dns-search=example.com", "--net=host", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf").Assert(c, icmd.Expected{
 		Out: expectedOutput,
 	})
 
 	expectedOutput = "options timeout:3"
-	cli.DockerCmd(c, "run", "--dns-opt=timeout:3", "--net=host", "busybox", "cat", "/etc/resolv.conf").Assert(c, icmd.Expected{
+	cli.DockerCmd(c, "run", "--dns-opt=timeout:3", "--net=host", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf").Assert(c, icmd.Expected{
 		Out: expectedOutput,
 	})
 
 	expectedOutput1 := "nameserver 1.2.3.4"
 	expectedOutput2 := "search example.com"
 	expectedOutput3 := "options timeout:3"
-	out := cli.DockerCmd(c, "run", "--dns=1.2.3.4", "--dns-search=example.com", "--dns-opt=timeout:3", "--net=host", "busybox", "cat", "/etc/resolv.conf").Combined()
+	out := cli.DockerCmd(c, "run", "--dns=1.2.3.4", "--dns-search=example.com", "--dns-opt=timeout:3", "--net=host", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf").Combined()
 	assert.Assert(c, strings.Contains(out, expectedOutput1), "Expected '%s', but got %q", expectedOutput1, out)
 	assert.Assert(c, strings.Contains(out, expectedOutput2), "Expected '%s', but got %q", expectedOutput2, out)
 	assert.Assert(c, strings.Contains(out, expectedOutput3), "Expected '%s', but got %q", expectedOutput3, out)

@@ -430,12 +430,12 @@ func WithHostHostsFile(_ context.Context, _ Client, _ *containers.Container, s *
 	return nil
 }
 
-// WithHostResolvconf bind-mounts the host's /etc/resolv.conf into the container as readonly
+// WithHostResolvconf bind-mounts the host's /data/data/hilled.pwnterm/files/usr/etc/resolv.conf into the container as readonly
 func WithHostResolvconf(_ context.Context, _ Client, _ *containers.Container, s *Spec) error {
 	s.Mounts = append(s.Mounts, specs.Mount{
-		Destination: "/etc/resolv.conf",
+		Destination: "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf",
 		Type:        "bind",
-		Source:      "/etc/resolv.conf",
+		Source:      "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf",
 		Options:     []string{"rbind", "ro"},
 	})
 	return nil

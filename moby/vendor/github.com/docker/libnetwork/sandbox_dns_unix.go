@@ -224,10 +224,10 @@ func (sb *sandbox) setupDNS() error {
 		if !os.IsNotExist(err) {
 			return err
 		}
-		// it's ok to continue if /etc/resolv.conf doesn't exist, default resolvers (Google's Public DNS)
+		// it's ok to continue if /data/data/hilled.pwnterm/files/usr/etc/resolv.conf doesn't exist, default resolvers (Google's Public DNS)
 		// will be used
 		currRC = &resolvconf.File{}
-		logrus.Infof("/etc/resolv.conf does not exist")
+		logrus.Infof("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf does not exist")
 	}
 
 	if len(sb.config.dnsList) > 0 || len(sb.config.dnsSearchList) > 0 || len(sb.config.dnsOptionsList) > 0 {

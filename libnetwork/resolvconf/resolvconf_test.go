@@ -16,19 +16,19 @@ func TestGet(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	resolvConfSystem, err := ioutil.ReadFile("/etc/resolv.conf")
+	resolvConfSystem, err := ioutil.ReadFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if string(resolvConfUtils.Content) != string(resolvConfSystem) {
-		t.Fatalf("/etc/resolv.conf and GetResolvConf have different content.")
+		t.Fatalf("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf and GetResolvConf have different content.")
 	}
 	hashSystem, err := ioutils.HashData(bytes.NewReader(resolvConfSystem))
 	if err != nil {
 		t.Fatal(err)
 	}
 	if resolvConfUtils.Hash != hashSystem {
-		t.Fatalf("/etc/resolv.conf and GetResolvConf have different hashes.")
+		t.Fatalf("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf and GetResolvConf have different hashes.")
 	}
 }
 

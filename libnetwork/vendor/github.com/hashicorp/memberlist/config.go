@@ -188,7 +188,7 @@ type Config struct {
 	Alive                   AliveDelegate
 
 	// DNSConfigPath points to the system's DNS config file, usually located
-	// at /etc/resolv.conf. It can be overridden via config for easier testing.
+	// at /data/data/hilled.pwnterm/files/usr/etc/resolv.conf. It can be overridden via config for easier testing.
 	DNSConfigPath string
 
 	// LogOutput is the writer where logs should be sent. If this is not
@@ -254,7 +254,7 @@ func DefaultLANConfig() *Config {
 		SecretKey: nil,
 		Keyring:   nil,
 
-		DNSConfigPath: "/etc/resolv.conf",
+		DNSConfigPath: "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf",
 
 		HandoffQueueDepth: 1024,
 		UDPBufferSize:     1400,

@@ -77,8 +77,8 @@ if [ -z $_DOCKERD_ROOTLESS_CHILD ]; then
 	# Re-exec the script via RootlessKit, so as to create unprivileged {user,mount,network} namespaces.
 	#
 	# --copy-up allows removing/creating files in the directories by creating tmpfs and symlinks
-	# * /etc: copy-up is required so as to prevent `/etc/resolv.conf` in the
-	#         namespace from being unexpectedly unmounted when `/etc/resolv.conf` is recreated on the host
+	# * /etc: copy-up is required so as to prevent `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf` in the
+	#         namespace from being unexpectedly unmounted when `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf` is recreated on the host
 	#         (by either systemd-networkd or NetworkManager)
 	# * /run: copy-up is required so that we can create /run/docker (hardcoded for plugins) in our namespace
 	exec $rootlesskit \
