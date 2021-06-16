@@ -591,7 +591,7 @@ func (t *task) checkpointTask(ctx context.Context, index *v1.Index, request *tas
 			Size:      d.Size_,
 			Digest:    d.Digest,
 			Platform: &v1.Platform{
-				OS:           goruntime.GOOS,
+				OS:           "linux",
 				Architecture: goruntime.GOARCH,
 			},
 			Annotations: d.Annotations,
@@ -609,7 +609,7 @@ func (t *task) checkpointRWSnapshot(ctx context.Context, index *v1.Index, snapsh
 		return err
 	}
 	rw.Platform = &v1.Platform{
-		OS:           goruntime.GOOS,
+		OS:           "linux",
 		Architecture: goruntime.GOARCH,
 	}
 	index.Manifests = append(index.Manifests, rw)

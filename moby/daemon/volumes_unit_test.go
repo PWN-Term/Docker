@@ -21,7 +21,7 @@ func TestParseVolumesFrom(t *testing.T) {
 		{"foobar:baz", "", "", true},
 	}
 
-	parser := volumemounts.NewParser(runtime.GOOS)
+	parser := volumemounts.NewParser("linux")
 
 	for _, c := range cases {
 		id, mode, err := parser.ParseVolumesFrom(c.spec)

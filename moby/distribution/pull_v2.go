@@ -560,7 +560,7 @@ func (p *v2Puller) pullSchema1(ctx context.Context, ref reference.Reference, unv
 	// the history does, but unfortunately that's a string, so search through
 	// all the history until hopefully we find one which indicates the OS.
 	// supertest2014/nyan is an example of a registry image with schemav1.
-	configOS := runtime.GOOS
+	configOS := "linux"
 	if system.LCOWSupported() {
 		type config struct {
 			Os string `json:"os,omitempty"`
@@ -664,7 +664,7 @@ func (p *v2Puller) pullSchema2Layers(ctx context.Context, target distribution.De
 		configPlatform   *specs.Platform // for LCOW when registering downloaded layers
 	)
 
-	layerStoreOS := runtime.GOOS
+	layerStoreOS := "linux"
 	if platform != nil {
 		layerStoreOS = platform.OS
 	}
@@ -677,7 +677,7 @@ func (p *v2Puller) pullSchema2Layers(ctx context.Context, target distribution.De
 	// which aren't suitable for NTFS. At some point in the future, if a similar
 	// check to block Windows images being pulled on Linux is implemented, it
 	// may be necessary to perform the same type of serialisation.
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		configJSON, configRootFS, configPlatform, err = receiveConfig(p.config.ImageStore, configChan, configErrChan)
 		if err != nil {
 			return "", err
@@ -1018,7 +1018,7 @@ func fixManifestLayers(m *schema1.Manifest) error {
 		}
 	}
 
-	if imgs[len(imgs)-1].Parent != "" && runtime.GOOS != "windows" {
+	if imgs[len(imgs)-1].Parent != "" && "linux" != "windows" {
 		// Windows base layer can point to a base layer parent that is not in manifest.
 		return errors.New("invalid parent ID in the base layer of the image")
 	}

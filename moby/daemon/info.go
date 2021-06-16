@@ -104,7 +104,7 @@ func (daemon *Daemon) SystemVersion() types.Version {
 					"ApiVersion":    api.DefaultVersion,
 					"MinAPIVersion": api.MinVersion,
 					"GoVersion":     runtime.Version(),
-					"Os":            runtime.GOOS,
+					"Os":            "linux",
 					"Arch":          runtime.GOARCH,
 					"BuildTime":     dockerversion.BuildTime,
 					"KernelVersion": kernelVersion,
@@ -119,7 +119,7 @@ func (daemon *Daemon) SystemVersion() types.Version {
 		APIVersion:    api.DefaultVersion,
 		MinAPIVersion: api.MinVersion,
 		GoVersion:     runtime.Version(),
-		Os:            runtime.GOOS,
+		Os:            "linux",
 		Arch:          runtime.GOARCH,
 		BuildTime:     dockerversion.BuildTime,
 		KernelVersion: kernelVersion,
@@ -278,7 +278,7 @@ func operatingSystem() (operatingSystem string) {
 		operatingSystem = s
 	}
 	// Don't do containerized check on Windows
-	if runtime.GOOS != "windows" {
+	if "linux" != "windows" {
 		if inContainer, err := operatingsystem.IsContainerized(); err != nil {
 			logrus.Errorf("Could not determine if daemon is containerized: %v", err)
 			operatingSystem += " (error determining if containerized)"

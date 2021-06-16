@@ -182,7 +182,7 @@ func (p *v2Pusher) pushV2Tag(ctx context.Context, ref reference.NamedTagged, id 
 
 	putOptions := []distribution.ManifestServiceOption{distribution.WithTag(ref.Tag())}
 	if _, err = manSvc.Put(ctx, manifest, putOptions...); err != nil {
-		if runtime.GOOS == "windows" || p.config.TrustKey == nil || p.config.RequireSchema2 {
+		if "linux" == "windows" || p.config.TrustKey == nil || p.config.RequireSchema2 {
 			logrus.Warnf("failed to upload schema2 manifest: %v", err)
 			return err
 		}

@@ -26,7 +26,7 @@ To see the man page for a command run **man docker <command>**.
 **-D**, **--debug**=*true*|*false*
   Enable debug mode. Default is false.
 
-**-H**, **--host**=[*unix:///var/run/docker.sock*]: tcp://[host]:[port][path] to bind or
+**-H**, **--host**=[*unix:///data/docker/run/docker.sock*]: tcp://[host]:[port][path] to bind or
 unix://[/path/to/socket] to use.
   The socket(s) to bind to in daemon mode specified using one or more
   tcp://host:port/path, unix:///path/to/socket, fd://* or fd://socketfd.

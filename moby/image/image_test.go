@@ -63,7 +63,7 @@ func TestImage(t *testing.T) {
 		Domainname: "domain",
 		User:       "root",
 	}
-	os := runtime.GOOS
+	os := "linux"
 
 	img := &Image{
 		V1Image: V1Image{

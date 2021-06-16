@@ -44,7 +44,7 @@ func TestProxyConfig(t *testing.T) {
 		},
 	}
 
-	proxyConfig := cfg.ParseProxyConfig("/var/run/docker.sock", nil)
+	proxyConfig := cfg.ParseProxyConfig("/data/docker/run/docker.sock", nil)
 	expected := map[string]*string{
 		"HTTP_PROXY":  &httpProxy,
 		"http_proxy":  &httpProxy,
@@ -87,7 +87,7 @@ func TestProxyConfigOverride(t *testing.T) {
 		"HTTP_PROXY": clone(overrideHTTPProxy),
 		"NO_PROXY":   clone(overrideNoProxy),
 	}
-	proxyConfig := cfg.ParseProxyConfig("/var/run/docker.sock", ropts)
+	proxyConfig := cfg.ParseProxyConfig("/data/docker/run/docker.sock", ropts)
 	expected := map[string]*string{
 		"HTTP_PROXY":  &overrideHTTPProxy,
 		"http_proxy":  &httpProxy,

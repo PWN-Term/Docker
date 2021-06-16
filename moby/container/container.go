@@ -152,7 +152,7 @@ func (container *Container) FromDisk() error {
 	// host OS if not, to ensure containers created before multiple-OS
 	// support are migrated
 	if container.OS == "" {
-		container.OS = runtime.GOOS
+		container.OS = "linux"
 	}
 
 	return container.readHostConfig()
@@ -265,7 +265,7 @@ func (container *Container) WriteHostConfig() (*containertypes.HostConfig, error
 func (container *Container) SetupWorkingDirectory(rootIdentity idtools.Identity) error {
 	// TODO: LCOW Support. This will need revisiting.
 	// We will need to do remote filesystem operations here.
-	if container.OS != runtime.GOOS {
+	if container.OS != "linux" {
 		return nil
 	}
 
@@ -475,7 +475,7 @@ func (container *Container) ShouldRestart() bool {
 func (container *Container) AddMountPointWithVolume(destination string, vol volume.Volume, rw bool) {
 	operatingSystem := container.OS
 	if operatingSystem == "" {
-		operatingSystem = runtime.GOOS
+		operatingSystem = "linux"
 	}
 	volumeParser := volumemounts.NewParser(operatingSystem)
 	container.MountPoints[destination] = &volumemounts.MountPoint{
@@ -721,12 +721,12 @@ func (container *Container) CreateDaemonEnvironment(tty bool, linkedEnv []string
 	// Setup environment
 	os := container.OS
 	if os == "" {
-		os = runtime.GOOS
+		os = "linux"
 	}
 
 	// Figure out what size slice we need so we can allocate this all at once.
 	envSize := len(container.Config.Env)
-	if runtime.GOOS != "windows" || (runtime.GOOS == "windows" && os == "linux") {
+	if "linux" != "windows" || ("linux" == "windows" && os == "linux") {
 		envSize += 2 + len(linkedEnv)
 	}
 	if tty {
@@ -734,7 +734,7 @@ func (container *Container) CreateDaemonEnvironment(tty bool, linkedEnv []string
 	}
 
 	env := make([]string, 0, envSize)
-	if runtime.GOOS != "windows" || (runtime.GOOS == "windows" && os == "linux") {
+	if "linux" != "windows" || ("linux" == "windows" && os == "linux") {
 		env = append(env, "PATH="+system.DefaultPathEnv(os))
 		env = append(env, "HOSTNAME="+container.Config.Hostname)
 		if tty {

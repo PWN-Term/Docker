@@ -70,7 +70,7 @@ func newTestStore(t *testing.T) (Store, string, func()) {
 
 	graph, graphcleanup := newTestGraphDriver(t)
 
-	ls, err := newStoreFromGraphDriver(td, graph, runtime.GOOS)
+	ls, err := newStoreFromGraphDriver(td, graph, "linux")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -300,7 +300,7 @@ func TestMountAndRegister(t *testing.T) {
 
 func TestLayerRelease(t *testing.T) {
 	// TODO Windows: Figure out why this is failing
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		t.Skip("Failing on Windows")
 	}
 	ls, _, cleanup := newTestStore(t)
@@ -349,7 +349,7 @@ func TestLayerRelease(t *testing.T) {
 
 func TestStoreRestore(t *testing.T) {
 	// TODO Windows: Figure out why this is failing
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		t.Skip("Failing on Windows")
 	}
 	ls, _, cleanup := newTestStore(t)
@@ -396,7 +396,7 @@ func TestStoreRestore(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	ls2, err := newStoreFromGraphDriver(ls.(*layerStore).store.root, ls.(*layerStore).driver, runtime.GOOS)
+	ls2, err := newStoreFromGraphDriver(ls.(*layerStore).store.root, ls.(*layerStore).driver, "linux")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -464,7 +464,7 @@ func TestStoreRestore(t *testing.T) {
 
 func TestTarStreamStability(t *testing.T) {
 	// TODO Windows: Figure out why this is failing
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		t.Skip("Failing on Windows")
 	}
 	ls, _, cleanup := newTestStore(t)
@@ -693,7 +693,7 @@ func TestRegisterExistingLayer(t *testing.T) {
 
 func TestTarStreamVerification(t *testing.T) {
 	// TODO Windows: Figure out why this is failing
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		t.Skip("Failing on Windows")
 	}
 	ls, tmpdir, cleanup := newTestStore(t)

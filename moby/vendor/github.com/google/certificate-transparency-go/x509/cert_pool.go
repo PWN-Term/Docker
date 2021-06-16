@@ -30,7 +30,7 @@ func NewCertPool() *CertPool {
 // Any mutations to the returned pool are not written to disk and do
 // not affect any other pool.
 func SystemCertPool() (*CertPool, error) {
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		// Issue 16736, 18609:
 		return nil, errors.New("crypto/x509: system root pool is not available on Windows")
 	}

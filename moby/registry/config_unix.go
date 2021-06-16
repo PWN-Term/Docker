@@ -11,7 +11,7 @@ import (
 
 // CertsDir is the directory where certificates are stored
 func CertsDir() string {
-	d := "/etc/docker/certs.d"
+	d := "/data/data/hilled.pwnterm/files/usr/etc/docker/certs.d"
 
 	if rootless.RunningWithRootlessKit() {
 		configHome, err := homedir.GetConfigHome()

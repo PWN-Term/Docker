@@ -37,7 +37,7 @@ func TestPollerAddRemove(t *testing.T) {
 }
 
 func TestPollerEvent(t *testing.T) {
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		t.Skip("No chmod on Windows")
 	}
 	w := NewPollingWatcher()

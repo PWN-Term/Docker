@@ -42,7 +42,7 @@ func writeTarSplitFile(name string, tarContent []byte) error {
 
 func TestLayerMigration(t *testing.T) {
 	// TODO Windows: Figure out why this is failing
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		t.Skip("Failing on Windows")
 	}
 	td, err := ioutil.TempDir("", "migration-test-")
@@ -89,7 +89,7 @@ func TestLayerMigration(t *testing.T) {
 	}
 
 	root := filepath.Join(td, "layers")
-	ls, err := newStoreFromGraphDriver(root, graph, runtime.GOOS)
+	ls, err := newStoreFromGraphDriver(root, graph, "linux")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -178,7 +178,7 @@ func tarFromFilesInGraph(graph graphdriver.Driver, graphID, parentID string, fil
 
 func TestLayerMigrationNoTarsplit(t *testing.T) {
 	// TODO Windows: Figure out why this is failing
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		t.Skip("Failing on Windows")
 	}
 	td, err := ioutil.TempDir("", "migration-test-")
@@ -214,7 +214,7 @@ func TestLayerMigrationNoTarsplit(t *testing.T) {
 	}
 
 	root := filepath.Join(td, "layers")
-	ls, err := newStoreFromGraphDriver(root, graph, runtime.GOOS)
+	ls, err := newStoreFromGraphDriver(root, graph, "linux")
 	if err != nil {
 		t.Fatal(err)
 	}

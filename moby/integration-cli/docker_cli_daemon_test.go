@@ -558,11 +558,11 @@ func (s *DockerDaemonSuite) TestDaemonAllocatesListeningPort(c *testing.T) {
 
 func (s *DockerDaemonSuite) TestDaemonKeyGeneration(c *testing.T) {
 	// TODO: skip or update for Windows daemon
-	os.Remove("/etc/docker/key.json")
+	os.Remove("/data/data/hilled.pwnterm/files/usr/etc/docker/key.json")
 	s.d.Start(c)
 	s.d.Stop(c)
 
-	k, err := libtrust.LoadKeyFile("/etc/docker/key.json")
+	k, err := libtrust.LoadKeyFile("/data/data/hilled.pwnterm/files/usr/etc/docker/key.json")
 	if err != nil {
 		c.Fatalf("Error opening key file")
 	}
@@ -1194,12 +1194,12 @@ func (s *DockerDaemonSuite) TestDaemonWithWrongkey(c *testing.T) {
 		Y   string `json:"y"`
 	}
 
-	os.Remove("/etc/docker/key.json")
+	os.Remove("/data/data/hilled.pwnterm/files/usr/etc/docker/key.json")
 	s.d.Start(c)
 	s.d.Stop(c)
 
 	config := &Config{}
-	bytes, err := ioutil.ReadFile("/etc/docker/key.json")
+	bytes, err := ioutil.ReadFile("/data/data/hilled.pwnterm/files/usr/etc/docker/key.json")
 	if err != nil {
 		c.Fatalf("Error reading key.json file: %s", err)
 	}
@@ -1219,11 +1219,11 @@ func (s *DockerDaemonSuite) TestDaemonWithWrongkey(c *testing.T) {
 	}
 
 	// write back
-	if err := ioutil.WriteFile("/etc/docker/key.json", newBytes, 0400); err != nil {
+	if err := ioutil.WriteFile("/data/data/hilled.pwnterm/files/usr/etc/docker/key.json", newBytes, 0400); err != nil {
 		c.Fatalf("Error ioutil.WriteFile: %s", err)
 	}
 
-	defer os.Remove("/etc/docker/key.json")
+	defer os.Remove("/data/data/hilled.pwnterm/files/usr/etc/docker/key.json")
 
 	if err := s.d.StartWithError(); err == nil {
 		c.Fatalf("It should not be successful to start daemon with wrong key: %v", err)

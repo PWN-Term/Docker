@@ -305,8 +305,8 @@ func TestMerge(t *testing.T) {
 func TestValidateContainerIsolation(t *testing.T) {
 	d := Daemon{}
 
-	_, err := d.verifyContainerSettings(runtime.GOOS, &containertypes.HostConfig{Isolation: containertypes.Isolation("invalid")}, nil, false)
-	assert.Check(t, is.Error(err, "invalid isolation 'invalid' on "+runtime.GOOS))
+	_, err := d.verifyContainerSettings("linux", &containertypes.HostConfig{Isolation: containertypes.Isolation("invalid")}, nil, false)
+	assert.Check(t, is.Error(err, "invalid isolation 'invalid' on "+"linux"))
 }
 
 func TestFindNetworkErrorType(t *testing.T) {

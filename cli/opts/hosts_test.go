@@ -137,14 +137,14 @@ func TestParseTCP(t *testing.T) {
 }
 
 func TestParseInvalidUnixAddrInvalid(t *testing.T) {
-	if _, err := parseSimpleProtoAddr("unix", "tcp://127.0.0.1", "unix:///var/run/docker.sock"); err == nil || err.Error() != "Invalid proto, expected unix: tcp://127.0.0.1" {
+	if _, err := parseSimpleProtoAddr("unix", "tcp://127.0.0.1", "unix:///data/docker/run/docker.sock"); err == nil || err.Error() != "Invalid proto, expected unix: tcp://127.0.0.1" {
 		t.Fatalf("Expected an error, got %v", err)
 	}
-	if _, err := parseSimpleProtoAddr("unix", "unix://tcp://127.0.0.1", "/var/run/docker.sock"); err == nil || err.Error() != "Invalid proto, expected unix: tcp://127.0.0.1" {
+	if _, err := parseSimpleProtoAddr("unix", "unix://tcp://127.0.0.1", "/data/docker/run/docker.sock"); err == nil || err.Error() != "Invalid proto, expected unix: tcp://127.0.0.1" {
 		t.Fatalf("Expected an error, got %v", err)
 	}
-	if v, err := parseSimpleProtoAddr("unix", "", "/var/run/docker.sock"); err != nil || v != "unix:///var/run/docker.sock" {
-		t.Fatalf("Expected an %v, got %v", v, "unix:///var/run/docker.sock")
+	if v, err := parseSimpleProtoAddr("unix", "", "/data/docker/run/docker.sock"); err != nil || v != "unix:///data/docker/run/docker.sock" {
+		t.Fatalf("Expected an %v, got %v", v, "unix:///data/docker/run/docker.sock")
 	}
 }
 

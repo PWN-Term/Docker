@@ -526,7 +526,7 @@ func TestReloadSetConfigFileNotExist(t *testing.T) {
 func TestReloadDefaultConfigNotExist(t *testing.T) {
 	skip.If(t, os.Getuid() != 0, "skipping test that requires root")
 	reloaded := false
-	configFile := "/etc/docker/daemon.json"
+	configFile := "/data/data/hilled.pwnterm/files/usr/etc/docker/daemon.json"
 	flags := pflag.NewFlagSet("test", pflag.ContinueOnError)
 	flags.String("config-file", configFile, "")
 	err := Reload(configFile, flags, func(c *Config) {

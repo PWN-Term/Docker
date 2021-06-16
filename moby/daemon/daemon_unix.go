@@ -537,7 +537,7 @@ func verifyPlatformContainerResources(resources *containertypes.Resources, sysIn
 		return warnings, fmt.Errorf("CPU cfs quota can not be less than 1ms (i.e. 1000)")
 	}
 	if resources.CPUPercent > 0 {
-		warnings = append(warnings, fmt.Sprintf("%s does not support CPU percent. Percent discarded.", runtime.GOOS))
+		warnings = append(warnings, fmt.Sprintf("%s does not support CPU percent. Percent discarded.", "linux"))
 		resources.CPUPercent = 0
 	}
 
@@ -571,7 +571,7 @@ func verifyPlatformContainerResources(resources *containertypes.Resources, sysIn
 		return warnings, fmt.Errorf("Range of blkio weight is from 10 to 1000")
 	}
 	if resources.IOMaximumBandwidth != 0 || resources.IOMaximumIOps != 0 {
-		return warnings, fmt.Errorf("Invalid QoS settings: %s does not support Maximum IO Bandwidth or Maximum IO IOps", runtime.GOOS)
+		return warnings, fmt.Errorf("Invalid QoS settings: %s does not support Maximum IO Bandwidth or Maximum IO IOps", "linux")
 	}
 	if len(resources.BlkioWeightDevice) > 0 && !sysInfo.BlkioWeightDevice {
 		warnings = append(warnings, "Your kernel does not support Block I/O weight_device or the cgroup is not mounted. Weight-device discarded.")
@@ -712,7 +712,7 @@ func verifyPlatformContainerSettings(daemon *Daemon, hostConfig *containertypes.
 		return warnings, fmt.Errorf("Unknown runtime specified %s", hostConfig.Runtime)
 	}
 
-	parser := volumemounts.NewParser(runtime.GOOS)
+	parser := volumemounts.NewParser("linux")
 	for dest := range hostConfig.Tmpfs {
 		if err := parser.ValidateTmpfsMountDestination(dest); err != nil {
 			return warnings, err
@@ -1166,7 +1166,7 @@ func parseRemappedRoot(usergrp string) (string, string, error) {
 }
 
 func setupRemappedRoot(config *config.Config) (*idtools.IdentityMapping, error) {
-	if runtime.GOOS != "linux" && config.RemappedRoot != "" {
+	if "linux" != "linux" && config.RemappedRoot != "" {
 		return nil, fmt.Errorf("User namespaces are only supported on Linux")
 	}
 

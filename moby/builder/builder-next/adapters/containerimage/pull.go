@@ -542,7 +542,7 @@ func (p *puller) Snapshot(ctx context.Context, g session.Group) (cache.Immutable
 	}()
 
 	r := image.NewRootFS()
-	rootFS, release, err := p.is.DownloadManager.Download(ctx, *r, runtime.GOOS, layers, pkgprogress.ChanOutput(pchan))
+	rootFS, release, err := p.is.DownloadManager.Download(ctx, *r, "linux", layers, pkgprogress.ChanOutput(pchan))
 	stopProgress()
 	if err != nil {
 		return nil, err

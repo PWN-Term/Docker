@@ -27,7 +27,7 @@ indicated with an `*`:
 
 ```bash
 NAME                DESCRIPTION                               DOCKER ENDPOINT                      KUBERNETES ENDPOINT   ORCHESTRATOR
-default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                                swarm
+default *           Current DOCKER_HOST based configuration   unix:///data/docker/run/docker.sock                                swarm
 production                                                    tcp:///prod.corp.example.com:2376
 staging                                                       tcp:///stage.corp.example.com:2376
 ```

@@ -36,7 +36,7 @@ func (i *ImageService) ImportImage(src string, repository, os string, tag string
 
 	// Default the operating system if not supplied.
 	if os == "" {
-		os = runtime.GOOS
+		os = "linux"
 	}
 
 	if repository != "" {

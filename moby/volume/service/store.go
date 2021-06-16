@@ -557,7 +557,7 @@ func (s *VolumeStore) create(ctx context.Context, name, driverName string, opts,
 
 	// volume name validation is specific to the host os and not on container image
 	// windows/lcow should have an equivalent volumename validation logic so we create a parser for current host OS
-	parser := volumemounts.NewParser(runtime.GOOS)
+	parser := volumemounts.NewParser("linux")
 	err := parser.ValidateVolumeName(name)
 	if err != nil {
 		return nil, err

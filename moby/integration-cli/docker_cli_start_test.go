@@ -193,7 +193,7 @@ func (s *DockerSuite) TestStartReturnCorrectExitCode(c *testing.T) {
 	// Note we parse kernel.GetKernelVersion rather than system.GetOSVersion
 	// as test binaries aren't manifested, so would otherwise report the wrong
 	// build number.
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		v, err := kernel.GetKernelVersion()
 		assert.NilError(c, err)
 		build, _ := strconv.Atoi(strings.Split(strings.SplitN(v.String(), " ", 3)[2][1:], ".")[0])

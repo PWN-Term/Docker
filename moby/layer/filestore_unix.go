@@ -11,5 +11,5 @@ func (fm *fileMetadataTransaction) setOS(os string) error {
 
 // getOS reads the "os" file from the layer filestore
 func (fms *fileMetadataStore) getOS(layer ChainID) (string, error) {
-	return runtime.GOOS, nil
+	return "linux", nil
 }

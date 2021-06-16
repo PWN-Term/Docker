@@ -14,7 +14,7 @@ func fmPtr(i int64) *os.FileMode { fm := os.FileMode(i); return &fm }
 
 // DefaultSpec returns the default spec used by docker for the current Platform
 func DefaultSpec() specs.Spec {
-	return DefaultOSSpec(runtime.GOOS)
+	return DefaultOSSpec("linux")
 }
 
 // DefaultOSSpec returns the spec for a given OS
@@ -186,7 +186,7 @@ func DefaultLinuxSpec() specs.Spec {
 	}
 
 	// For LCOW support, populate a blank Windows spec
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		s.Windows = &specs.Windows{}
 	}
 

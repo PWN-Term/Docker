@@ -169,8 +169,8 @@ func (i *ImageService) pullForBuilder(ctx context.Context, name string, authConf
 // leaking of layers.
 func (i *ImageService) GetImageAndReleasableLayer(ctx context.Context, refOrID string, opts backend.GetImageAndLayerOptions) (builder.Image, builder.ROLayer, error) {
 	if refOrID == "" { // ie FROM scratch
-		os := runtime.GOOS
-		if runtime.GOOS == "windows" {
+		os := "linux"
+		if "linux" == "windows" {
 			os = "linux"
 		}
 		if opts.Platform != nil {

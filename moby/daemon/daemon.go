@@ -890,7 +890,7 @@ func NewDaemon(ctx context.Context, config *config.Config, pluginStore *plugin.S
 	d.graphDrivers = make(map[string]string)
 	layerStores := make(map[string]layer.Store)
 	if isWindows {
-		d.graphDrivers[runtime.GOOS] = "windowsfilter"
+		d.graphDrivers["linux"] = "windowsfilter"
 		if system.LCOWSupported() {
 			d.graphDrivers["linux"] = "lcow"
 		}
@@ -901,7 +901,7 @@ func NewDaemon(ctx context.Context, config *config.Config, pluginStore *plugin.S
 		} else {
 			logrus.Infof("Setting the storage driver from the $DOCKER_DRIVER environment variable (%s)", driverName)
 		}
-		d.graphDrivers[runtime.GOOS] = driverName // May still be empty. Layerstore init determines instead.
+		d.graphDrivers["linux"] = driverName // May still be empty. Layerstore init determines instead.
 	}
 
 	d.RegistryService = registryService
@@ -1011,11 +1011,11 @@ func NewDaemon(ctx context.Context, config *config.Config, pluginStore *plugin.S
 
 	// Configure and validate the kernels security support. Note this is a Linux/FreeBSD
 	// operation only, so it is safe to pass *just* the runtime OS graphdriver.
-	if err := configureKernelSecuritySupport(config, d.graphDrivers[runtime.GOOS]); err != nil {
+	if err := configureKernelSecuritySupport(config, d.graphDrivers["linux"]); err != nil {
 		return nil, err
 	}
 
-	imageRoot := filepath.Join(config.Root, "image", d.graphDrivers[runtime.GOOS])
+	imageRoot := filepath.Join(config.Root, "image", d.graphDrivers["linux"])
 	ifs, err := image.NewFSStoreBackend(filepath.Join(imageRoot, "imagedb"))
 	if err != nil {
 		return nil, err
@@ -1076,7 +1076,7 @@ func NewDaemon(ctx context.Context, config *config.Config, pluginStore *plugin.S
 	sysInfo := d.RawSysInfo(false)
 	// Check if Devices cgroup is mounted, it is hard requirement for container security,
 	// on Linux.
-	if runtime.GOOS == "linux" && !sysInfo.CgroupDevicesEnabled && !sys.RunningInUserNS() {
+	if "linux" == "linux" && !sysInfo.CgroupDevicesEnabled && !sys.RunningInUserNS() {
 		return nil, errors.New("Devices cgroup isn't mounted")
 	}
 
@@ -1320,7 +1320,7 @@ func (daemon *Daemon) Mount(container *container.Container) error {
 		// The mount path reported by the graph driver should always be trusted on Windows, since the
 		// volume path for a given mounted layer may change over time.  This should only be an error
 		// on non-Windows operating systems.
-		if runtime.GOOS != "windows" {
+		if "linux" != "windows" {
 			daemon.Unmount(container)
 			return fmt.Errorf("Error: driver %s is returning inconsistent paths for container %s ('%s' then '%s')",
 				daemon.imageService.GraphDriverForOS(container.OS), container.ID, container.BaseFS, dir)

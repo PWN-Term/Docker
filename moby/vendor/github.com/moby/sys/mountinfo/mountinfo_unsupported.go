@@ -7,7 +7,7 @@ import (
 	"runtime"
 )
 
-var errNotImplemented = fmt.Errorf("not implemented on %s/%s", runtime.GOOS, runtime.GOARCH)
+var errNotImplemented = fmt.Errorf("not implemented on %s/%s", "linux", runtime.GOARCH)
 
 func parseMountTable(_ FilterFunc) ([]*Info, error) {
 	return nil, errNotImplemented

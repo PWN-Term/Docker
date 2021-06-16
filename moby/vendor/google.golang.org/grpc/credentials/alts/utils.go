@@ -52,7 +52,7 @@ func (k platformError) Error() string {
 
 var (
 	// The following two variables will be reassigned in tests.
-	runningOS          = runtime.GOOS
+	runningOS          = "linux"
 	manufacturerReader = func() (io.Reader, error) {
 		switch runningOS {
 		case "linux":

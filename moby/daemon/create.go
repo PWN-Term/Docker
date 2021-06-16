@@ -60,7 +60,7 @@ func (daemon *Daemon) containerCreate(opts createOpts) (containertypes.Container
 		return containertypes.ContainerCreateCreatedBody{}, errdefs.InvalidParameter(errors.New("Config cannot be empty in order to create a container"))
 	}
 
-	os := runtime.GOOS
+	os := "linux"
 	var img *image.Image
 	if opts.params.Config.Image != "" {
 		var err error
@@ -129,7 +129,7 @@ func (daemon *Daemon) create(opts createOpts) (retC *container.Container, retErr
 		err   error
 	)
 
-	os := runtime.GOOS
+	os := "linux"
 	if opts.params.Config.Image != "" {
 		img, err = daemon.imageService.GetImage(opts.params.Config.Image, opts.params.Platform)
 		if err != nil {

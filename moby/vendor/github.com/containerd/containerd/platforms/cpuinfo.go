@@ -42,8 +42,8 @@ func init() {
 // So we don't need to access the ARM registers to detect platform information
 // by ourselves. We can just parse these information from /proc/cpuinfo
 func getCPUInfo(pattern string) (info string, err error) {
-	if !isLinuxOS(runtime.GOOS) {
-		return "", errors.Wrapf(errdefs.ErrNotImplemented, "getCPUInfo for OS %s", runtime.GOOS)
+	if !isLinuxOS("linux") {
+		return "", errors.Wrapf(errdefs.ErrNotImplemented, "getCPUInfo for OS %s", "linux")
 	}
 
 	cpuinfo, err := os.Open("/proc/cpuinfo")
@@ -74,7 +74,7 @@ func getCPUInfo(pattern string) (info string, err error) {
 }
 
 func getCPUVariant() string {
-	if runtime.GOOS == "windows" || runtime.GOOS == "darwin" {
+	if "linux" == "windows" || "linux" == "darwin" {
 		// Windows/Darwin only supports v7 for ARM32 and v8 for ARM64 and so we can use
 		// runtime.GOARCH to determine the variants
 		var variant string

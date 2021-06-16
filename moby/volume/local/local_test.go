@@ -31,7 +31,7 @@ func TestGetAddress(t *testing.T) {
 }
 
 func TestRemove(t *testing.T) {
-	skip.If(t, runtime.GOOS == "windows", "FIXME: investigate why this test fails on CI")
+	skip.If(t, "linux" == "windows", "FIXME: investigate why this test fails on CI")
 	rootDir, err := ioutil.TempDir("", "local-volume-test")
 	if err != nil {
 		t.Fatal(err)
@@ -178,7 +178,7 @@ func TestValidateName(t *testing.T) {
 }
 
 func TestCreateWithOpts(t *testing.T) {
-	skip.If(t, runtime.GOOS == "windows")
+	skip.If(t, "linux" == "windows")
 	skip.If(t, os.Getuid() != 0, "requires mounts")
 	rootDir, err := ioutil.TempDir("", "local-volume-test")
 	if err != nil {

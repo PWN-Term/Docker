@@ -389,7 +389,7 @@ func newAWSLogsClient(info logger.Info) (api, error) {
 			currentAgent := r.HTTPRequest.Header.Get(userAgentHeader)
 			r.HTTPRequest.Header.Set(userAgentHeader,
 				fmt.Sprintf("Docker %s (%s) %s",
-					dockerversion.Version, runtime.GOOS, currentAgent))
+					dockerversion.Version, "linux", currentAgent))
 		},
 	})
 	return client, nil

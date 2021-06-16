@@ -44,7 +44,7 @@ func (daemon *Daemon) ContainerKill(name string, sig uint64) error {
 	}
 
 	if sig != 0 && !signal.ValidSignalForPlatform(syscall.Signal(sig)) {
-		return fmt.Errorf("The %s daemon does not support signal %d", runtime.GOOS, sig)
+		return fmt.Errorf("The %s daemon does not support signal %d", "linux", sig)
 	}
 
 	// If no signal is passed, or SIGKILL, perform regular Kill (SIGKILL + wait())

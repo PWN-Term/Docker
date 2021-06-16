@@ -94,7 +94,7 @@ func copierFromDispatchRequest(req dispatchRequest, download sourceDownloader, i
 	}
 	if platform.OS == "" {
 		// This is a failsafe just in case. Shouldn't be hit.
-		platform.OS = runtime.GOOS
+		platform.OS = "linux"
 	}
 
 	return copier{
@@ -114,7 +114,7 @@ func (o *copier) createCopyInstruction(args []string, cmdName string) (copyInstr
 	// Work in platform-specific filepath semantics
 	// TODO: This OS switch for paths is NOT correct and should not be supported.
 	// Maintained for backwards compatibility
-	pathOS := runtime.GOOS
+	pathOS := "linux"
 	if o.platform != nil {
 		pathOS = o.platform.OS
 	}
@@ -556,7 +556,7 @@ func copyDirectory(archiver Archiver, source, dest *copyEndpoint, identity *idto
 }
 
 func copyFile(archiver Archiver, source, dest *copyEndpoint, identity *idtools.Identity) error {
-	if runtime.GOOS == "windows" && dest.driver.OS() == "linux" {
+	if "linux" == "windows" && dest.driver.OS() == "linux" {
 		// LCOW
 		if err := dest.driver.MkdirAll(dest.driver.Dir(dest.path), 0755); err != nil {
 			return errors.Wrapf(err, "failed to create new directory")

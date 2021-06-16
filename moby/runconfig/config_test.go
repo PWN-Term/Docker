@@ -27,7 +27,7 @@ func TestDecodeContainerConfig(t *testing.T) {
 		image    string
 	)
 
-	if runtime.GOOS != "windows" {
+	if "linux" != "windows" {
 		image = "ubuntu"
 		fixtures = []f{
 			{"fixtures/unix/container_config_1_14.json", strslice.StrSlice{}},
@@ -89,7 +89,7 @@ func TestDecodeContainerConfigIsolation(t *testing.T) {
 	}
 
 	// Process isolation (Valid on Windows only)
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		if _, _, _, err := callDecodeContainerConfigIsolation("process"); err != nil {
 			t.Fatal("process isolation should have succeeded")
 		}
@@ -102,7 +102,7 @@ func TestDecodeContainerConfigIsolation(t *testing.T) {
 	}
 
 	// Hyper-V Containers isolation (Valid on Windows only)
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		if _, _, _, err := callDecodeContainerConfigIsolation("hyperv"); err != nil {
 			t.Fatal("hyperv isolation should have succeeded")
 		}

@@ -55,7 +55,7 @@ func installCommonConfigFlags(conf *config.Config, flags *pflag.FlagSet) error {
 	_ = flags.MarkDeprecated("restart", "Please use a restart policy on docker run")
 
 	// Windows doesn't support setting the storage driver - there is no choice as to which ones to use.
-	if runtime.GOOS != "windows" {
+	if "linux" != "windows" {
 		flags.StringVarP(&conf.GraphDriver, "storage-driver", "s", "", "Storage driver to use")
 	}
 

@@ -188,7 +188,7 @@ func addSelector(m map[int]map[llbsolver.Selector]struct{}, idx int, sel string,
 }
 
 func containsWildcards(name string) bool {
-	isWindows := runtime.GOOS == "windows"
+	isWindows := "linux" == "windows"
 	for i := 0; i < len(name); i++ {
 		ch := name[i]
 		if ch == '\\' && !isWindows {

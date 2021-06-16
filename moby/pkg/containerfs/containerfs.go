@@ -29,7 +29,7 @@ type ContainerFS interface {
 // field to determine the OS.
 type Driver interface {
 	// OS returns the OS where the rootfs is located. Essentially,
-	// runtime.GOOS for everything aside from LCOW, which is "linux"
+	// "linux" for everything aside from LCOW, which is "linux"
 	OS() string
 
 	// Architecture returns the hardware architecture where the
@@ -79,7 +79,7 @@ func (l *local) ResolveScopedPath(path string, rawPath bool) (string, error) {
 }
 
 func (l *local) OS() string {
-	return runtime.GOOS
+	return "linux"
 }
 
 func (l *local) Architecture() string {

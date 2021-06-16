@@ -15,7 +15,7 @@ import (
 // createContainerOSSpecificSettings performs host-OS specific container create functionality
 func (daemon *Daemon) createContainerOSSpecificSettings(container *container.Container, config *containertypes.Config, hostConfig *containertypes.HostConfig) error {
 
-	if container.OS == runtime.GOOS {
+	if container.OS == "linux" {
 		// Make sure the host config has the default daemon isolation if not specified by caller.
 		if containertypes.Isolation.IsDefault(containertypes.Isolation(hostConfig.Isolation)) {
 			hostConfig.Isolation = daemon.defaultIsolation

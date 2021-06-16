@@ -144,7 +144,7 @@ The Docker daemon can listen for [Docker Engine API](https://docs.docker.com/eng
 requests via three different types of Socket: `unix`, `tcp`, and `fd`.
 
 By default, a `unix` domain socket (or IPC socket) is created at
-`/var/run/docker.sock`, requiring either `root` permission, or `docker` group
+`/data/docker/run/docker.sock`, requiring either `root` permission, or `docker` group
 membership.
 
 If you need to access the Docker daemon remotely, you need to enable the `tcp`
@@ -177,7 +177,7 @@ time using multiple `-H` options:
 ```bash
 # listen using the default unix socket, and on 2 specific IP addresses on this host.
 
-$ sudo dockerd -H unix:///var/run/docker.sock -H tcp://192.168.59.106 -H tcp://10.10.10.2
+$ sudo dockerd -H unix:///data/docker/run/docker.sock -H tcp://192.168.59.106 -H tcp://10.10.10.2
 ```
 
 The Docker client will honor the `DOCKER_HOST` environment variable to set the
@@ -235,14 +235,14 @@ supported. If your key is protected with passphrase, you need to set up
 
 With `-H` it is possible to make the Docker daemon to listen on a
 specific IP and port. By default, it will listen on
-`unix:///var/run/docker.sock` to allow only local connections by the
+`unix:///data/docker/run/docker.sock` to allow only local connections by the
 *root* user. You *could* set it to `0.0.0.0:2375` or a specific host IP
 to give access to everybody, but that is **not recommended** because
 then it is trivial for someone to gain root access to the host where the
 daemon is running.
 
 Similarly, the Docker client can use `-H` to connect to a custom port.
-The Docker client will default to connecting to `unix:///var/run/docker.sock`
+The Docker client will default to connecting to `unix:///data/docker/run/docker.sock`
 on Linux, and `tcp://127.0.0.1:2376` on Windows.
 
 `-H` accepts host and port assignment in the following format:
@@ -282,7 +282,7 @@ TCP and a Unix socket
 
 ```bash
 # Run docker in daemon mode
-$ sudo <path to>/dockerd -H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock &
+$ sudo <path to>/dockerd -H tcp://127.0.0.1:2375 -H unix:///data/docker/run/docker.sock &
 # Download an ubuntu image, use default Unix socket
 $ docker pull ubuntu
 # OR use the TCP port
@@ -1596,7 +1596,7 @@ cluster state are stored. The default value is `/var/lib/docker`. To avoid any
 conflict with other daemons, set this parameter separately for each daemon.
 - `-p, --pidfile=/var/run/docker.pid` is the path where the process ID of the daemon is stored. Specify the path for your
 pid file here.
-- `--host=[]` specifies where the Docker daemon will listen for client connections. If unspecified, it defaults to `/var/run/docker.sock`.
+- `--host=[]` specifies where the Docker daemon will listen for client connections. If unspecified, it defaults to `/data/docker/run/docker.sock`.
 -  `--iptables=false` prevents the Docker daemon from adding iptables rules. If
 multiple daemons manage iptables rules, they may overwrite rules set by another
 daemon. Be aware that disabling this option requires you to manually add

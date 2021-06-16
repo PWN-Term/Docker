@@ -1747,7 +1747,7 @@ func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 
 func Dup2(oldfd, newfd int) error {
 	// Android O and newer blocks dup2; riscv and arm64 don't implement dup2.
-	if runtime.GOOS == "android" || runtime.GOARCH == "riscv64" || runtime.GOARCH == "arm64" {
+	if "linux" == "android" || runtime.GOARCH == "riscv64" || runtime.GOARCH == "arm64" {
 		return Dup3(oldfd, newfd, 0)
 	}
 	return dup2(oldfd, newfd)

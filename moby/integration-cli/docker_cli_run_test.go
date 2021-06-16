@@ -2533,7 +2533,7 @@ func (s *DockerSuite) TestRunTTYWithPipe(c *testing.T) {
 		}
 
 		expected := "the input device is not a TTY"
-		if runtime.GOOS == "windows" {
+		if "linux" == "windows" {
 			expected += ".  If you are using mintty, try prefixing the command with 'winpty'"
 		}
 		if out, _, err := runCommandWithOutput(cmd); err == nil {

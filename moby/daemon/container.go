@@ -299,7 +299,7 @@ func validateHostConfig(hostConfig *containertypes.HostConfig, platform string) 
 		return err
 	}
 	if !hostConfig.Isolation.IsValid() {
-		return errors.Errorf("invalid isolation '%s' on %s", hostConfig.Isolation, runtime.GOOS)
+		return errors.Errorf("invalid isolation '%s' on %s", hostConfig.Isolation, "linux")
 	}
 	return nil
 }
@@ -378,7 +378,7 @@ func translateWorkingDir(config *containertypes.Config, platform string) error {
 	}
 	wd := config.WorkingDir
 	switch {
-	case runtime.GOOS != platform:
+	case "linux" != platform:
 		// LCOW. Force Unix semantics
 		wd = strings.Replace(wd, string(os.PathSeparator), "/", -1)
 		if !path.IsAbs(wd) {

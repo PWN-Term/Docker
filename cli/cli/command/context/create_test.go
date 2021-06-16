@@ -31,7 +31,7 @@ func makeFakeCli(t *testing.T, opts ...func(*test.FakeCli)) (*test.FakeCli, func
 				Meta: store.Metadata{
 					Endpoints: map[string]interface{}{
 						docker.DockerEndpoint: docker.EndpointMeta{
-							Host: "unix:///var/run/docker.sock",
+							Host: "unix:///data/docker/run/docker.sock",
 						},
 					},
 					Metadata: command.DockerContext{

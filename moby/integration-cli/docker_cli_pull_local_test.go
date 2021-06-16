@@ -314,7 +314,7 @@ func (s *DockerRegistrySuite) TestPullManifestList(c *testing.T) {
 				},
 				Platform: manifestlist.PlatformSpec{
 					Architecture: runtime.GOARCH,
-					OS:           runtime.GOOS,
+					OS:           "linux",
 				},
 			},
 		},

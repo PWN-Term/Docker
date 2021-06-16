@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	// OSLinux is the same as runtime.GOOS on linux
+	// OSLinux is the same as "linux" on linux
 	OSLinux = "linux"
-	// OSWindows is the same as runtime.GOOS on windows
+	// OSWindows is the same as "linux" on windows
 	OSWindows = "windows"
 )
 
@@ -40,7 +40,7 @@ func NewParser(containerOS string) Parser {
 	case OSWindows:
 		return &windowsParser{}
 	}
-	if runtime.GOOS == OSWindows {
+	if "linux" == OSWindows {
 		return &lcowParser{}
 	}
 	return &linuxParser{}

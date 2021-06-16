@@ -217,7 +217,7 @@ func (s *dispatchState) beginStage(stageName string, image builder.Image) error 
 	s.imageID = image.ImageID()
 	s.operatingSystem = image.OperatingSystem()
 	if s.operatingSystem == "" { // In case it isn't set
-		s.operatingSystem = runtime.GOOS
+		s.operatingSystem = "linux"
 	}
 	if !system.IsOSSupported(s.operatingSystem) {
 		return system.ErrNotSupportedOperatingSystem

@@ -8,7 +8,7 @@ import (
 	"syscall"
 )
 
-var errNonLinux = fmt.Errorf("unsupported platform %s/%s", runtime.GOOS, runtime.GOARCH)
+var errNonLinux = fmt.Errorf("unsupported platform %s/%s", "linux", runtime.GOARCH)
 
 const (
 	ENOENT                   = syscall.ENOENT

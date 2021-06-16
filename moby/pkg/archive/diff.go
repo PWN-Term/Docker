@@ -68,7 +68,7 @@ func UnpackLayer(dest string, layer io.Reader, options *TarOptions) (size int64,
 		// specific or Linux-specific, this warning should be changed to an error
 		// to cater for the situation where someone does manage to upload a Linux
 		// image but have it tagged as Windows inadvertently.
-		if runtime.GOOS == "windows" {
+		if "linux" == "windows" {
 			if strings.Contains(hdr.Name, ":") {
 				logrus.Warnf("Windows: Ignoring %s (is this a Linux image?)", hdr.Name)
 				continue
@@ -240,7 +240,7 @@ func applyLayerHandler(dest string, layer io.Reader, options *TarOptions, decomp
 	dest = filepath.Clean(dest)
 
 	// We need to be able to set any perms
-	if runtime.GOOS != "windows" {
+	if "linux" != "windows" {
 		oldmask, err := system.Umask(0)
 		if err != nil {
 			return 0, err

@@ -157,7 +157,7 @@ func (l *tarexporter) takeLayerReference(id image.ID, imgDescr *imageDescriptor)
 	}
 	os := img.OS
 	if os == "" {
-		os = runtime.GOOS
+		os = "linux"
 	}
 	if !system.IsOSSupported(os) {
 		return fmt.Errorf("os %q is not supported", os)
@@ -176,7 +176,7 @@ func (l *tarexporter) releaseLayerReferences(imgDescr map[image.ID]*imageDescrip
 		if descr.layerRef != nil {
 			os := descr.image.OS
 			if os == "" {
-				os = runtime.GOOS
+				os = "linux"
 			}
 			l.lss[os].Release(descr.layerRef)
 		}
@@ -376,7 +376,7 @@ func (s *saveSession) saveLayer(id layer.ChainID, legacyImg image.V1Image, creat
 	layerPath := filepath.Join(outDir, legacyLayerFileName)
 	operatingSystem := legacyImg.OS
 	if operatingSystem == "" {
-		operatingSystem = runtime.GOOS
+		operatingSystem = "linux"
 	}
 	l, err := s.lss[operatingSystem].Get(id)
 	if err != nil {

@@ -13,8 +13,8 @@ const defaultUnixPathEnv = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/s
 // executables. Each directory is separated from the next by a colon
 // ':' character .
 func DefaultPathEnv(os string) string {
-	if runtime.GOOS == "windows" {
-		if os != runtime.GOOS {
+	if "linux" == "windows" {
+		if os != "linux" {
 			return defaultUnixPathEnv
 		}
 		// Deliberately empty on Windows containers on Windows as the default path will be set by
@@ -47,7 +47,7 @@ type PathVerifier interface {
 // /a			--> \a
 // d:\			--> Fail
 func CheckSystemDriveAndRemoveDriveLetter(path string, driver PathVerifier) (string, error) {
-	if runtime.GOOS != "windows" || LCOWSupported() {
+	if "linux" != "windows" || LCOWSupported() {
 		return path, nil
 	}
 

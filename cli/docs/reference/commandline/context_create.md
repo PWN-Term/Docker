@@ -59,12 +59,12 @@ configuration to connect to different clusters or single nodes.
 
 To create a context from scratch provide the docker and, if required,
 kubernetes options. The example below creates the context `my-context`
-with a docker endpoint of `/var/run/docker.sock` and a kubernetes configuration
+with a docker endpoint of `/data/docker/run/docker.sock` and a kubernetes configuration
 sourced from the file `/home/me/my-kube-config`:
 
 ```bash
 $ docker context create \
-    --docker host=unix:///var/run/docker.sock \
+    --docker host=unix:///data/docker/run/docker.sock \
     --kubernetes config-file=/home/me/my-kube-config \
     my-context
 ```
@@ -108,11 +108,11 @@ $ docker context create \
 To source only the `kubernetes` configuration from an existing context use the
 `--kubernetes from=<context-name>` option. The example below creates a new
 context named `my-context` using the kuberentes configuration from the existing
-context `existing-context` and a docker endpoint of `/var/run/docker.sock`:
+context `existing-context` and a docker endpoint of `/data/docker/run/docker.sock`:
 
 ```bash
 $ docker context create \
-    --docker host=unix:///var/run/docker.sock \
+    --docker host=unix:///data/docker/run/docker.sock \
     --kubernetes from=existing-context \
     my-context
 ```

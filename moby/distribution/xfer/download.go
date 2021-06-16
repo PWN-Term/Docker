@@ -119,7 +119,7 @@ func (ldm *LayerDownloadManager) Download(ctx context.Context, initialRootFS ima
 	// Assume that the operating system is the host OS if blank, and validate it
 	// to ensure we don't cause a panic by an invalid index into the layerstores.
 	if os == "" {
-		os = runtime.GOOS
+		os = "linux"
 	}
 	if !system.IsOSSupported(os) {
 		return image.RootFS{}, nil, system.ErrNotSupportedOperatingSystem

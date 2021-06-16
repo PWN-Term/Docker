@@ -93,9 +93,9 @@ func (l *tarexporter) Load(inTar io.ReadCloser, outStream io.Writer, quiet bool)
 		// On Windows, validate the platform, defaulting to windows if not present.
 		os := img.OS
 		if os == "" {
-			os = runtime.GOOS
+			os = "linux"
 		}
-		if runtime.GOOS == "windows" {
+		if "linux" == "windows" {
 			if (os != "windows") && (os != "linux") {
 				return fmt.Errorf("configuration for this image has an unsupported operating system: %s", os)
 			}
@@ -221,7 +221,7 @@ func (l *tarexporter) setLoadedTag(ref reference.Named, imgID digest.Digest, out
 }
 
 func (l *tarexporter) legacyLoad(tmpDir string, outStream io.Writer, progressOutput progress.Output) error {
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		return errors.New("Windows does not support legacy loading of images")
 	}
 
@@ -304,7 +304,7 @@ func (l *tarexporter) legacyLoadImage(oldID, sourceDir string, loadedMap map[str
 		return err
 	}
 	if img.OS == "" {
-		img.OS = runtime.GOOS
+		img.OS = "linux"
 	}
 
 	var parentID image.ID
@@ -415,12 +415,12 @@ func checkValidParent(img, parent *image.Image) bool {
 
 func checkCompatibleOS(imageOS string) error {
 	// always compatible if the images OS matches the host OS; also match an empty image OS
-	if imageOS == runtime.GOOS || imageOS == "" {
+	if imageOS == "linux" || imageOS == "" {
 		return nil
 	}
 	// On non-Windows hosts, for compatibility, fail if the image is Windows.
-	if runtime.GOOS != "windows" && imageOS == "windows" {
-		return fmt.Errorf("cannot load %s image on %s", imageOS, runtime.GOOS)
+	if "linux" != "windows" && imageOS == "windows" {
+		return fmt.Errorf("cannot load %s image on %s", imageOS, "linux")
 	}
 
 	p, err := platforms.Parse(imageOS)

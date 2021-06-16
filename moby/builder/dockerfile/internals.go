@@ -448,7 +448,7 @@ func (b *Builder) probeAndCreate(dispatchState *dispatchState, runConfig *contai
 func (b *Builder) create(runConfig *container.Config) (string, error) {
 	logrus.Debugf("[BUILDER] Command to be executed: %v", runConfig.Cmd)
 
-	isWCOW := runtime.GOOS == "windows" && b.platform != nil && b.platform.OS == "windows"
+	isWCOW := "linux" == "windows" && b.platform != nil && b.platform.OS == "windows"
 	hostConfig := hostConfigFromOptions(b.options, isWCOW)
 	container, err := b.containerManager.Create(runConfig, hostConfig)
 	if err != nil {

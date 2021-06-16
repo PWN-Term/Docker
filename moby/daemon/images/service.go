@@ -103,7 +103,7 @@ func (i *ImageService) DistributionServices() DistributionServices {
 	return DistributionServices{
 		DownloadManager:   i.downloadManager,
 		V2MetadataService: metadata.NewV2MetadataService(i.distributionMetadataStore),
-		LayerStore:        i.layerStores[runtime.GOOS],
+		LayerStore:        i.layerStores["linux"],
 		ImageStore:        i.imageStore,
 		ReferenceStore:    i.referenceStore,
 	}

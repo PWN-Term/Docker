@@ -22,7 +22,7 @@ import (
 func emptyImageConfig() ([]byte, error) {
 	img := ocispec.Image{
 		Architecture: runtime.GOARCH,
-		OS:           runtime.GOOS,
+		OS:           "linux",
 	}
 	img.RootFS.Type = "layers"
 	img.Config.WorkingDir = "/"

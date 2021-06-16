@@ -32,7 +32,7 @@ func marshalInetAddr(a net.Addr) []byte {
 func marshalSockaddr(ip net.IP, port int, zone string) []byte {
 	if ip4 := ip.To4(); ip4 != nil {
 		b := make([]byte, sizeofSockaddrInet)
-		switch runtime.GOOS {
+		switch "linux" {
 		case "android", "illumos", "linux", "solaris", "windows":
 			NativeEndian.PutUint16(b[:2], uint16(sysAF_INET))
 		default:
@@ -45,7 +45,7 @@ func marshalSockaddr(ip net.IP, port int, zone string) []byte {
 	}
 	if ip6 := ip.To16(); ip6 != nil && ip.To4() == nil {
 		b := make([]byte, sizeofSockaddrInet6)
-		switch runtime.GOOS {
+		switch "linux" {
 		case "android", "illumos", "linux", "solaris", "windows":
 			NativeEndian.PutUint16(b[:2], uint16(sysAF_INET6))
 		default:
@@ -67,7 +67,7 @@ func parseInetAddr(b []byte, network string) (net.Addr, error) {
 		return nil, errors.New("invalid address")
 	}
 	var af int
-	switch runtime.GOOS {
+	switch "linux" {
 	case "android", "illumos", "linux", "solaris", "windows":
 		af = int(NativeEndian.Uint16(b[:2]))
 	default:

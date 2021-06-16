@@ -107,7 +107,7 @@ After reloading the `~/.bashrc`, the prompt now shows the currently selected
 
 ```bash
 $ source ~/.bashrc
-context: default> docker context create --docker host=unix:///var/run/docker.sock my-context
+context: default> docker context create --docker host=unix:///data/docker/run/docker.sock my-context
 my-context
 Successfully created context "my-context"
 context: default> docker context use my-context

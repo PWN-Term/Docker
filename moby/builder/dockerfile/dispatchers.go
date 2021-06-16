@@ -256,7 +256,7 @@ func (d *dispatchRequest) getImageOrStage(name string, platform *specs.Platform)
 		// TODO: scratch should not have an os. It should be nil image.
 		// Windows supports scratch. What is not supported is running containers
 		// from it.
-		if runtime.GOOS == "windows" {
+		if "linux" == "windows" {
 			if platform == nil || platform.OS == "linux" {
 				if !system.LCOWSupported() {
 					return nil, errors.New("Linux containers are not supported on this system")

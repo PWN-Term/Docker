@@ -441,7 +441,7 @@ func TestParseMountSpec(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer os.RemoveAll(testDir)
-	parser := NewParser(runtime.GOOS)
+	parser := NewParser("linux")
 	cases := []c{
 		{mount.Mount{Type: mount.TypeBind, Source: testDir, Target: testDestinationPath, ReadOnly: true}, MountPoint{Type: mount.TypeBind, Source: testDir, Destination: testDestinationPath, Propagation: parser.DefaultPropagationMode()}},
 		{mount.Mount{Type: mount.TypeBind, Source: testDir, Target: testDestinationPath}, MountPoint{Type: mount.TypeBind, Source: testDir, Destination: testDestinationPath, RW: true, Propagation: parser.DefaultPropagationMode()}},
@@ -517,12 +517,12 @@ func TestParseMountSpecBindWithFileinfoError(t *testing.T) {
 	currentFileInfoProvider = &mockFiProviderWithError{err: testErr}
 
 	p := "/bananas"
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		p = `c:\bananas`
 	}
 	m := mount.Mount{Type: mount.TypeBind, Source: p, Target: p}
 
-	parser := NewParser(runtime.GOOS)
+	parser := NewParser("linux")
 
 	_, err := parser.ParseMountSpec(m)
 	assert.Assert(t, err != nil)

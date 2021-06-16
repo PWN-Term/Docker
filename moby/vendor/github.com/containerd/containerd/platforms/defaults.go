@@ -30,7 +30,7 @@ func DefaultString() string {
 // DefaultSpec returns the current platform's default platform specification.
 func DefaultSpec() specs.Platform {
 	return specs.Platform{
-		OS:           runtime.GOOS,
+		OS:           "linux",
 		Architecture: runtime.GOARCH,
 		// The Variant field will be empty if arch != ARM.
 		Variant: cpuVariant,

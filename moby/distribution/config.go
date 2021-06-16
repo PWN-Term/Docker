@@ -157,15 +157,15 @@ func (s *imageConfigStore) PlatformFromConfig(c []byte) (*specs.Platform, error)
 
 	// fail immediately on Windows when downloading a non-Windows image
 	// and vice versa. Exception on Windows if Linux Containers are enabled.
-	if runtime.GOOS == "windows" && unmarshalledConfig.OS == "linux" && !system.LCOWSupported() {
+	if "linux" == "windows" && unmarshalledConfig.OS == "linux" && !system.LCOWSupported() {
 		return nil, fmt.Errorf("image operating system %q cannot be used on this platform", unmarshalledConfig.OS)
-	} else if runtime.GOOS != "windows" && unmarshalledConfig.OS == "windows" {
+	} else if "linux" != "windows" && unmarshalledConfig.OS == "windows" {
 		return nil, fmt.Errorf("image operating system %q cannot be used on this platform", unmarshalledConfig.OS)
 	}
 
 	os := unmarshalledConfig.OS
 	if os == "" {
-		os = runtime.GOOS
+		os = "linux"
 	}
 	if !system.IsOSSupported(os) {
 		return nil, system.ErrNotSupportedOperatingSystem

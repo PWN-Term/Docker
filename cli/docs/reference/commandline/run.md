@@ -278,7 +278,7 @@ filesystem as read only prohibiting writes to locations other than the
 specified volumes for the container.
 
 ```bash
-$ docker run -t -i -v /var/run/docker.sock:/var/run/docker.sock -v /path/to/static-docker-binary:/usr/bin/docker busybox sh
+$ docker run -t -i -v /data/docker/run/docker.sock:/data/docker/run/docker.sock -v /path/to/static-docker-binary:/usr/bin/docker busybox sh
 ```
 
 By bind-mounting the docker unix socket and statically linked docker

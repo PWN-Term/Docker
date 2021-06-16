@@ -55,7 +55,7 @@ func validateIsolation(hc *container.HostConfig) error {
 		return nil
 	}
 	if !hc.Isolation.IsValid() {
-		return fmt.Errorf("Invalid isolation: %q - %s only supports 'default'", hc.Isolation, runtime.GOOS)
+		return fmt.Errorf("Invalid isolation: %q - %s only supports 'default'", hc.Isolation, "linux")
 	}
 	return nil
 }
@@ -68,11 +68,11 @@ func validateQoS(hc *container.HostConfig) error {
 	}
 
 	if hc.IOMaximumBandwidth != 0 {
-		return fmt.Errorf("Invalid QoS settings: %s does not support configuration of maximum bandwidth", runtime.GOOS)
+		return fmt.Errorf("Invalid QoS settings: %s does not support configuration of maximum bandwidth", "linux")
 	}
 
 	if hc.IOMaximumIOps != 0 {
-		return fmt.Errorf("Invalid QoS settings: %s does not support configuration of maximum IOPs", runtime.GOOS)
+		return fmt.Errorf("Invalid QoS settings: %s does not support configuration of maximum IOPs", "linux")
 	}
 	return nil
 }

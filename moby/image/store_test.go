@@ -27,7 +27,7 @@ func TestRestore(t *testing.T) {
 	assert.NilError(t, err)
 
 	mlgrMap := make(map[string]LayerGetReleaser)
-	mlgrMap[runtime.GOOS] = &mockLayerGetReleaser{}
+	mlgrMap["linux"] = &mockLayerGetReleaser{}
 	is, err := NewImageStore(fs, mlgrMap)
 	assert.NilError(t, err)
 
@@ -146,7 +146,7 @@ func defaultImageStore(t *testing.T) (Store, func()) {
 	fsBackend, cleanup := defaultFSStoreBackend(t)
 
 	mlgrMap := make(map[string]LayerGetReleaser)
-	mlgrMap[runtime.GOOS] = &mockLayerGetReleaser{}
+	mlgrMap["linux"] = &mockLayerGetReleaser{}
 	store, err := NewImageStore(fsBackend, mlgrMap)
 	assert.NilError(t, err)
 

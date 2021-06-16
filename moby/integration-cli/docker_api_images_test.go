@@ -59,7 +59,7 @@ func (s *DockerSuite) TestAPIImagesFilter(c *testing.T) {
 }
 
 func (s *DockerSuite) TestAPIImagesSaveAndLoad(c *testing.T) {
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		// Note we parse kernel.GetKernelVersion rather than osversion.Build()
 		// as test binaries aren't manifested, so would otherwise report build 9200.
 		v, err := kernel.GetKernelVersion()
@@ -141,7 +141,7 @@ func (s *DockerSuite) TestAPIImagesHistory(c *testing.T) {
 }
 
 func (s *DockerSuite) TestAPIImagesImportBadSrc(c *testing.T) {
-	if runtime.GOOS == "windows" {
+	if "linux" == "windows" {
 		// Note we parse kernel.GetKernelVersion rather than osversion.Build()
 		// as test binaries aren't manifested, so would otherwise report build 9200.
 		v, err := kernel.GetKernelVersion()
