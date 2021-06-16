@@ -422,7 +422,7 @@ function check_etchosts() {
 
     for i in $*;
     do
-	run runc ${dnet} ${sbid} "cat /etc/hosts"
+	run runc ${dnet} ${sbid} "cat /data/data/hilled.pwnterm/files/usr/etc/hosts"
 	if [ "$status" -ne 0 ]; then
 	    retval="${output}"
 	    break

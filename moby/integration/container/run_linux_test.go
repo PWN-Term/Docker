@@ -129,7 +129,7 @@ func TestHostnameDnsResolution(t *testing.T) {
 
 	// Clear hosts file so ping will use DNS for hostname resolution
 	res, err := container.Exec(ctx, client, cID,
-		[]string{"sh", "-c", "echo 127.0.0.1 localhost | tee /etc/hosts && ping -c 1 foobar"})
+		[]string{"sh", "-c", "echo 127.0.0.1 localhost | tee /data/data/hilled.pwnterm/files/usr/etc/hosts && ping -c 1 foobar"})
 	assert.NilError(t, err)
 	assert.Check(t, is.Equal("", res.Stderr()))
 	assert.Equal(t, 0, res.ExitCode)

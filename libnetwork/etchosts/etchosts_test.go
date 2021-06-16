@@ -18,7 +18,7 @@ func TestBuildDefault(t *testing.T) {
 	}
 	defer os.Remove(file.Name())
 
-	// check that /etc/hosts has consistent ordering
+	// check that /data/data/hilled.pwnterm/files/usr/etc/hosts has consistent ordering
 	for i := 0; i <= 5; i++ {
 		err = Build(file.Name(), "", "", "", nil)
 		if err != nil {

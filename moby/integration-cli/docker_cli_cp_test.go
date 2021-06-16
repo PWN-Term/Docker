@@ -394,8 +394,8 @@ func (s *DockerSuite) TestCpSpecialFiles(c *testing.T) {
 	assert.NilError(c, err)
 	assert.Assert(c, bytes.Equal(actual, expected), "Expected copied file to be duplicate of the container resolvconf")
 
-	// Copy actual /etc/hosts
-	dockerCmd(c, "cp", containerID+":/etc/hosts", outDir)
+	// Copy actual /data/data/hilled.pwnterm/files/usr/etc/hosts
+	dockerCmd(c, "cp", containerID+":/data/data/hilled.pwnterm/files/usr/etc/hosts", outDir)
 
 	expected = readContainerFile(c, containerID, "hosts")
 	actual, err = ioutil.ReadFile(outDir + "/hosts")

@@ -787,7 +787,7 @@ func (s *DockerNetworkSuite) TestDockerPluginV2NetworkDriver(c *testing.T) {
 
 func (s *DockerDaemonSuite) TestDockerNetworkNoDiscoveryDefaultBridgeNetwork(c *testing.T) {
 	// On default bridge network built-in service discovery should not happen
-	hostsFile := "/etc/hosts"
+	hostsFile := "/data/data/hilled.pwnterm/files/usr/etc/hosts"
 	bridgeName := "external-bridge"
 	bridgeIP := "192.169.255.254/24"
 	createInterface(c, "bridge", bridgeName, bridgeIP)
@@ -839,7 +839,7 @@ func (s *DockerDaemonSuite) TestDockerNetworkNoDiscoveryDefaultBridgeNetwork(c *
 
 func (s *DockerNetworkSuite) TestDockerNetworkAnonymousEndpoint(c *testing.T) {
 	testRequires(c, NotArm)
-	hostsFile := "/etc/hosts"
+	hostsFile := "/data/data/hilled.pwnterm/files/usr/etc/hosts"
 	cstmBridgeNw := "custom-bridge-nw"
 	cstmBridgeNw1 := "custom-bridge-nw1"
 
@@ -859,7 +859,7 @@ func (s *DockerNetworkSuite) TestDockerNetworkAnonymousEndpoint(c *testing.T) {
 	hosts1post := readContainerFileWithExec(c, cid1, hostsFile)
 	assert.Equal(c, string(hosts1), string(hosts1post), fmt.Sprintf("Unexpected %s change on anonymous container creation", hostsFile))
 	// Connect the 2nd container to a new network and verify the
-	// first container /etc/hosts file still hasn't changed.
+	// first container /data/data/hilled.pwnterm/files/usr/etc/hosts file still hasn't changed.
 	dockerCmd(c, "network", "create", "-d", "bridge", cstmBridgeNw1)
 	assertNwIsAvailable(c, cstmBridgeNw1)
 

@@ -312,7 +312,7 @@ container, and `"container:<donor-name-or-ID>"` for other containers.
                           'host': use the Docker host network stack
                           '<network-name>|<network-id>': connect to a user-defined network
     --network-alias=[] : Add network-scoped alias for the container
-    --add-host=""      : Add a line to /etc/hosts (host:IP)
+    --add-host=""      : Add a line to /data/data/hilled.pwnterm/files/usr/etc/hosts (host:IP)
     --mac-address=""   : Sets the container's Ethernet device's MAC address
     --ip=""            : Sets the container's Ethernet device's IPv4 address
     --ip6=""           : Sets the container's Ethernet device's IPv6 address
@@ -410,8 +410,8 @@ network mode a container has its own UTS namespace by default. As such
 only change the hostname and domain name inside the container.
 Similar to `--hostname`, the `--add-host`, `--dns`, `--dns-search`, and
 `--dns-option` options can be used in `host` network mode. These options update
-`/etc/hosts` or `/etc/resolv.conf` inside the container. No change are made to
-`/etc/hosts` and `/etc/resolv.conf` on the host.
+`/data/data/hilled.pwnterm/files/usr/etc/hosts` or `/etc/resolv.conf` inside the container. No change are made to
+`/data/data/hilled.pwnterm/files/usr/etc/hosts` and `/etc/resolv.conf` on the host.
 
 Compared to the default `bridge` mode, the `host` mode gives *significantly*
 better networking performance since it uses the host's native networking stack
@@ -463,14 +463,14 @@ $ docker network create -d bridge my-net
 $ docker run --network=my-net -itd --name=container3 busybox
 ```
 
-### Managing /etc/hosts
+### Managing /data/data/hilled.pwnterm/files/usr/etc/hosts
 
-Your container will have lines in `/etc/hosts` which define the hostname of the
+Your container will have lines in `/data/data/hilled.pwnterm/files/usr/etc/hosts` which define the hostname of the
 container itself as well as `localhost` and a few other common things. The
-`--add-host` flag can be used to add additional lines to `/etc/hosts`.
+`--add-host` flag can be used to add additional lines to `/data/data/hilled.pwnterm/files/usr/etc/hosts`.
 
 ```bash
-$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts
+$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /data/data/hilled.pwnterm/files/usr/etc/hosts
 
 172.17.0.22     09d03f76bf2c
 fe00::0         ip6-localnet
@@ -483,14 +483,14 @@ ff02::2         ip6-allrouters
 ```
 
 If a container is connected to the default bridge network and `linked`
-with other containers, then the container's `/etc/hosts` file is updated
+with other containers, then the container's `/data/data/hilled.pwnterm/files/usr/etc/hosts` file is updated
 with the linked container's name.
 
 > **Note**
 >
-> Since Docker may live update the container’s `/etc/hosts` file, there
+> Since Docker may live update the container’s `/data/data/hilled.pwnterm/files/usr/etc/hosts` file, there
 > may be situations when processes inside the container can end up reading an
-> empty or incomplete `/etc/hosts` file. In most cases, retrying the read again
+> empty or incomplete `/data/data/hilled.pwnterm/files/usr/etc/hosts` file. In most cases, retrying the read again
 > should fix the problem.
 
 ## Restart policies (--restart)

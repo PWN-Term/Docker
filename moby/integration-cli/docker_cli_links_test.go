@@ -150,8 +150,8 @@ func (s *DockerSuite) TestLinksHostsFilesInject(c *testing.T) {
 
 	assert.Assert(c, waitRun(idTwo) == nil)
 
-	readContainerFileWithExec(c, idOne, "/etc/hosts")
-	contentTwo := readContainerFileWithExec(c, idTwo, "/etc/hosts")
+	readContainerFileWithExec(c, idOne, "/data/data/hilled.pwnterm/files/usr/etc/hosts")
+	contentTwo := readContainerFileWithExec(c, idTwo, "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	// Host is not present in updated hosts file
 	assert.Assert(c, strings.Contains(string(contentTwo), "onetwo"))
 }
@@ -164,7 +164,7 @@ func (s *DockerSuite) TestLinksUpdateOnRestart(c *testing.T) {
 	id := strings.TrimSpace(out)
 
 	realIP := inspectField(c, "one", "NetworkSettings.Networks.bridge.IPAddress")
-	content := readContainerFileWithExec(c, id, "/etc/hosts")
+	content := readContainerFileWithExec(c, id, "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 
 	getIP := func(hosts []byte, hostname string) string {
 		re := regexp.MustCompile(fmt.Sprintf(`(\S*)\t%s`, regexp.QuoteMeta(hostname)))
@@ -181,7 +181,7 @@ func (s *DockerSuite) TestLinksUpdateOnRestart(c *testing.T) {
 	dockerCmd(c, "restart", "one")
 	realIP = inspectField(c, "one", "NetworkSettings.Networks.bridge.IPAddress")
 
-	content = readContainerFileWithExec(c, id, "/etc/hosts")
+	content = readContainerFileWithExec(c, id, "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	ip = getIP(content, "one")
 	assert.Equal(c, ip, realIP)
 
@@ -227,8 +227,8 @@ func (s *DockerSuite) TestLinksNetworkHostContainer(c *testing.T) {
 
 func (s *DockerSuite) TestLinksEtcHostsRegularFile(c *testing.T) {
 	testRequires(c, DaemonIsLinux, NotUserNamespace)
-	out, _ := dockerCmd(c, "run", "--net=host", "busybox", "ls", "-la", "/etc/hosts")
-	// /etc/hosts should be a regular file
+	out, _ := dockerCmd(c, "run", "--net=host", "busybox", "ls", "-la", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
+	// /data/data/hilled.pwnterm/files/usr/etc/hosts should be a regular file
 	assert.Assert(c, cmp.Regexp("^-.+\n$", out))
 }
 

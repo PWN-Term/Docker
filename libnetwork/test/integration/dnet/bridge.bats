@@ -176,7 +176,7 @@ function test_single_network_connectivity() {
 	    osvc="svc${j}${i}"
 	    echo "pinging ${osvc}"
 	    dnet_cmd $(inst_id2port 1) service ls
-	    runc $(dnet_container_name 1 bridge) $(get_sbox_id 1 container_${i}) "cat /etc/hosts"
+	    runc $(dnet_container_name 1 bridge) $(get_sbox_id 1 container_${i}) "cat /data/data/hilled.pwnterm/files/usr/etc/hosts"
 	    runc $(dnet_container_name 1 bridge) $(get_sbox_id 1 container_${i}) "ping -c 1 ${osvc}"
 	done
     done

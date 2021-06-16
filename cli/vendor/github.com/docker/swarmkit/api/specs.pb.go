@@ -981,7 +981,7 @@ type ContainerSpec struct {
 	// ConfigReference contains references to zero or more configs that
 	// will be exposed to the container.
 	Configs []*ConfigReference `protobuf:"bytes,21,rep,name=configs,proto3" json:"configs,omitempty"`
-	// Hosts allow additional entries to be specified in /etc/hosts
+	// Hosts allow additional entries to be specified in /data/data/hilled.pwnterm/files/usr/etc/hosts
 	// that associates IP addresses with hostnames.
 	// Detailed documentation is available in:
 	// http://man7.org/linux/man-pages/man5/hosts.5.html

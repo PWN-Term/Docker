@@ -608,7 +608,7 @@ definitions:
           ExtraHosts:
             type: "array"
             description: |
-              A list of hostnames/IP mappings to add to the container's `/etc/hosts` file. Specified in the form `["hostname:IP"]`.
+              A list of hostnames/IP mappings to add to the container's `/data/data/hilled.pwnterm/files/usr/etc/hosts` file. Specified in the form `["hostname:IP"]`.
             items:
               type: "string"
           GroupAdd:
@@ -1942,7 +1942,7 @@ definitions:
           Hosts:
             type: "array"
             description: |
-              A list of hostnames/IP mappings to add to the container's `/etc/hosts` file.
+              A list of hostnames/IP mappings to add to the container's `/data/data/hilled.pwnterm/files/usr/etc/hosts` file.
               The format of extra hosts on swarmkit is specified in:
               http://man7.org/linux/man-pages/man5/hosts.5.html
                 IP_address canonical_hostname [aliases...]
@@ -4483,7 +4483,7 @@ paths:
           type: "string"
         - name: "extrahosts"
           in: "query"
-          description: "Extra hosts to add to /etc/hosts"
+          description: "Extra hosts to add to /data/data/hilled.pwnterm/files/usr/etc/hosts"
           type: "string"
         - name: "remote"
           in: "query"

@@ -2368,7 +2368,7 @@ func (s *DockerDaemonSuite) TestBuildOnDisabledBridgeNetworkDaemon(c *testing.T)
 	result := cli.BuildCmd(c, "busyboxs", cli.Daemon(s.d),
 		build.WithDockerfile(`
         FROM busybox
-        RUN cat /etc/hosts`),
+        RUN cat /data/data/hilled.pwnterm/files/usr/etc/hosts`),
 		build.WithoutCache,
 	)
 	comment := fmt.Sprintf("Failed to build image. output %s, exitCode %d, err %v", result.Combined(), result.ExitCode, result.Error)

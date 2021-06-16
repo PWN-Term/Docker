@@ -115,7 +115,7 @@ func initFS(root string) error {
 		createDirectory("/sys", uid, gid),
 		createDirectory("/etc", uid, gid),
 		touchFile("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", uid, gid),
-		touchFile("/etc/hosts", uid, gid),
+		touchFile("/data/data/hilled.pwnterm/files/usr/etc/hosts", uid, gid),
 		touchFile("/etc/hostname", uid, gid),
 		symlink("/proc/mounts", "/etc/mtab"),
 	}

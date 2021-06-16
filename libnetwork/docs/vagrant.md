@@ -50,10 +50,10 @@ No services has been published so far, so the `docker service ls` will return an
     $ docker service ls
     SERVICE ID          NAME                NETWORK             CONTAINER
 
-Start a container and check the content of `/etc/hosts`.
+Start a container and check the content of `/data/data/hilled.pwnterm/files/usr/etc/hosts`.
 
     $ docker run -it --rm ubuntu:14.04 bash
-    root@df479e660658:/# cat /etc/hosts
+    root@df479e660658:/# cat /data/data/hilled.pwnterm/files/usr/etc/hosts
     172.21.0.3	df479e660658
     127.0.0.1	localhost
     ::1	localhost ip6-localhost ip6-loopback
@@ -81,10 +81,10 @@ Now in a separate terminal, SSH to `net-2`, check the network and services. The 
     SERVICE ID          NAME                NETWORK             CONTAINER
     b00f2bfd81ac        distracted_bohr     multihost           df479e660658
 
-Start a container on `net-2` and check the `/etc/hosts`.
+Start a container on `net-2` and check the `/data/data/hilled.pwnterm/files/usr/etc/hosts`.
 
     vagrant@net-2:~$ docker run -ti --rm ubuntu:14.04 bash
-    root@2ac726b4ce60:/# cat /etc/hosts
+    root@2ac726b4ce60:/# cat /data/data/hilled.pwnterm/files/usr/etc/hosts
     172.21.0.4	2ac726b4ce60
     127.0.0.1	localhost
     ::1	localhost ip6-localhost ip6-loopback
@@ -129,7 +129,7 @@ Check the docker services now:
     SERVICE ID          NAME                NETWORK             CONTAINER
     b1ffdbfb1ac6        bar                 foobar              6635a3822135
 
-Repeat the getting started steps, by starting another container in this new overlay on the other host, check the `/etc/hosts` file and try to ping each container.
+Repeat the getting started steps, by starting another container in this new overlay on the other host, check the `/data/data/hilled.pwnterm/files/usr/etc/hosts` file and try to ping each container.
 
 ## A look at the interfaces
 

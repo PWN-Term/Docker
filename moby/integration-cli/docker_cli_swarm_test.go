@@ -1443,7 +1443,7 @@ func (s *DockerSwarmSuite) TestExtraHosts(c *testing.T) {
 
 	// Compare against expected output.
 	expectedOutput := "1.2.3.4\texample.com"
-	out, err = d.Cmd("exec", id, "cat", "/etc/hosts")
+	out, err = d.Cmd("exec", id, "cat", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	assert.NilError(c, err, out)
 	assert.Assert(c, strings.Contains(out, expectedOutput), "Expected '%s', but got %q", expectedOutput, out)
 }

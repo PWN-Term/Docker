@@ -91,7 +91,7 @@ type sandbox struct {
 	Service sync.Mutex
 }
 
-// These are the container configs used to customize container /etc/hosts file.
+// These are the container configs used to customize container /data/data/hilled.pwnterm/files/usr/etc/hosts file.
 type hostsPathConfig struct {
 	hostName        string
 	domainName      string
@@ -1065,7 +1065,7 @@ func OptionOriginHostsPath(path string) SandboxOption {
 	}
 }
 
-// OptionExtraHost function returns an option setter for extra /etc/hosts options
+// OptionExtraHost function returns an option setter for extra /data/data/hilled.pwnterm/files/usr/etc/hosts options
 // which is a name and IP as strings.
 func OptionExtraHost(name string, IP string) SandboxOption {
 	return func(sb *sandbox) {

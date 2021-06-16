@@ -419,12 +419,12 @@ func WithNoNewPrivileges(_ context.Context, _ Client, _ *containers.Container, s
 	return nil
 }
 
-// WithHostHostsFile bind-mounts the host's /etc/hosts into the container as readonly
+// WithHostHostsFile bind-mounts the host's /data/data/hilled.pwnterm/files/usr/etc/hosts into the container as readonly
 func WithHostHostsFile(_ context.Context, _ Client, _ *containers.Container, s *Spec) error {
 	s.Mounts = append(s.Mounts, specs.Mount{
-		Destination: "/etc/hosts",
+		Destination: "/data/data/hilled.pwnterm/files/usr/etc/hosts",
 		Type:        "bind",
-		Source:      "/etc/hosts",
+		Source:      "/data/data/hilled.pwnterm/files/usr/etc/hosts",
 		Options:     []string{"rbind", "ro"},
 	})
 	return nil

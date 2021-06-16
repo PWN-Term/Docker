@@ -131,7 +131,7 @@ func TestMain(m *testing.M) {
 func TestSandboxOptionParser(t *testing.T) {
 	hn := "host1"
 	dn := "docker.com"
-	hp := "/etc/hosts"
+	hp := "/data/data/hilled.pwnterm/files/usr/etc/hosts"
 	rc := "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf"
 	dnss := []string{"8.8.8.8", "172.28.34.5"}
 	ehs := []extraHost{{Name: "extra1", Address: "172.28.9.1"}, {Name: "extra2", Address: "172.28.9.2"}}

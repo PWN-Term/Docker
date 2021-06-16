@@ -35,7 +35,7 @@ var (
 		{Hosts: "ip6-allrouters", IP: "ff02::2"},
 	}
 
-	// A cache of path level locks for synchronizing /etc/hosts
+	// A cache of path level locks for synchronizing /data/data/hilled.pwnterm/files/usr/etc/hosts
 	// updates on a file level
 	pathMap = make(map[string]*sync.Mutex)
 
@@ -111,7 +111,7 @@ func Build(path, IP, hostname, domainname string, extraContent []Record) error {
 	return ioutil.WriteFile(path, content.Bytes(), 0644)
 }
 
-// Add adds an arbitrary number of Records to an already existing /etc/hosts file
+// Add adds an arbitrary number of Records to an already existing /data/data/hilled.pwnterm/files/usr/etc/hosts file
 func Add(path string, recs []Record) error {
 	defer pathLock(path)()
 
@@ -149,7 +149,7 @@ func mergeRecords(path string, recs []Record) ([]byte, error) {
 	return content.Bytes(), nil
 }
 
-// Delete deletes an arbitrary number of Records already existing in /etc/hosts file
+// Delete deletes an arbitrary number of Records already existing in /data/data/hilled.pwnterm/files/usr/etc/hosts file
 func Delete(path string, recs []Record) error {
 	defer pathLock(path)()
 

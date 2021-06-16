@@ -351,7 +351,7 @@ func TestParsePAXRecord(t *testing.T) {
 		ok      bool
 	}{
 		{"6 k=v\n\n", "\n", "k", "v", true},
-		{"19 path=/etc/hosts\n", "", "path", "/etc/hosts", true},
+		{"19 path=/data/data/hilled.pwnterm/files/usr/etc/hosts\n", "", "path", "/data/data/hilled.pwnterm/files/usr/etc/hosts", true},
 		{"210 path=" + longName + "\nabc", "abc", "path", longName, true},
 		{"110 path=" + medName + "\n", "", "path", medName, true},
 		{"9 foo=ba\n", "", "foo", "ba", true},
@@ -402,7 +402,7 @@ func TestFormatPAXRecord(t *testing.T) {
 		ok    bool
 	}{
 		{"k", "v", "6 k=v\n", true},
-		{"path", "/etc/hosts", "19 path=/etc/hosts\n", true},
+		{"path", "/data/data/hilled.pwnterm/files/usr/etc/hosts", "19 path=/data/data/hilled.pwnterm/files/usr/etc/hosts\n", true},
 		{"path", longName, "210 path=" + longName + "\n", true},
 		{"path", medName, "110 path=" + medName + "\n", true},
 		{"foo", "ba", "9 foo=ba\n", true},

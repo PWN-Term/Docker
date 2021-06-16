@@ -80,7 +80,7 @@ set as the **URL**, the repository is cloned locally and then sent as the contex
 **--add-host** []
    Add a custom host-to-IP mapping (host:ip)
 
-   Add a line to /etc/hosts. The format is hostname:ip.  The **--add-host**
+   Add a line to /data/data/hilled.pwnterm/files/usr/etc/hosts. The format is hostname:ip.  The **--add-host**
 option can be set multiple times.
 
 **--build-arg** *variable*

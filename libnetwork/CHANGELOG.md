@@ -3,7 +3,7 @@
 ## 0.8.0-dev.2 (2016-05-07)
 - Fix an issue which may arise during sandbox cleanup (https://github.com/docker/libnetwork/pull/1157)
 - Fix cleanup logic in case of ipv6 allocation failure
-- Don't add /etc/hosts record if container's ip is empty (--net=none)
+- Don't add /data/data/hilled.pwnterm/files/usr/etc/hosts record if container's ip is empty (--net=none)
 - Fix default gw logic for internal networks
 - Error when updating IPv6 gateway (https://github.com/docker/libnetwork/issues/1142)
 - Fixes https://github.com/docker/libnetwork/issues/1113
@@ -161,7 +161,7 @@
 - Fixing a regex in etchosts package to fix docker/docker#19080
 
 ## 0.5.2 (2016-01-08)
-- Embedded DNS replacing /etc/hosts based Service Discovery
+- Embedded DNS replacing /data/data/hilled.pwnterm/files/usr/etc/hosts based Service Discovery
 - Container local alias and Network-scoped alias support
 - Backend support for internal network mode
 - Support for IPAM driver options
@@ -188,7 +188,7 @@
 - Introduce experimental version of Overlay driver
 - Introduce experimental version of network plugins
 - Introduce experimental version of network & service UX
-- Introduced experimental /etc/hosts based service discovery
+- Introduced experimental /data/data/hilled.pwnterm/files/usr/etc/hosts based service discovery
 - Integrated with libkv
 - Improving test coverage
 - Fixed a bunch of issues with osl namespace mgmt

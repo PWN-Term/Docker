@@ -76,7 +76,7 @@ To use the CLI against a local Notary server rather than against Docker Hub:
     $ mkdir -p ~/.notary && cp cmd/notary/config.json cmd/notary/root-ca.crt ~/.notary
     ```
 
-1. Add `127.0.0.1 notary-server` to your `/etc/hosts`, or if using docker-machine,
+1. Add `127.0.0.1 notary-server` to your `/data/data/hilled.pwnterm/files/usr/etc/hosts`, or if using docker-machine,
     add `$(docker-machine ip) notary-server`).
 
 You can run through the examples in the

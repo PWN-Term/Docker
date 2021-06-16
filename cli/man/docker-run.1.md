@@ -122,7 +122,7 @@ each of stdin, stdout, and stderr.
 **--add-host**=[]
    Add a custom host-to-IP mapping (host:ip)
 
-   Add a line to /etc/hosts. The format is hostname:ip.  The **--add-host**
+   Add a line to /data/data/hilled.pwnterm/files/usr/etc/hosts. The format is hostname:ip.  The **--add-host**
 option can be set multiple times.
 
 **--blkio-weight**=*0*
@@ -955,7 +955,7 @@ Create a 3rd container using the new --ipc=container:CONTAINERID option, now it 
 > **Note**: This section describes linking between containers on the
 > default (bridge) network, also known as "legacy links". Using `--link`
 > on user-defined networks uses the DNS-based discovery, which does not add
-> entries to `/etc/hosts`, and does not set environment variables for
+> entries to `/data/data/hilled.pwnterm/files/usr/etc/hosts`, and does not set environment variables for
 > discovery.
 
 The link feature allows multiple containers to communicate with each other. For
@@ -992,12 +992,12 @@ When linking two containers Docker will use the exposed ports of the container
 to create a secure tunnel for the parent to access.
 
 If a container is connected to the default bridge network and `linked`
-with other containers, then the container's `/etc/hosts` file is updated
+with other containers, then the container's `/data/data/hilled.pwnterm/files/usr/etc/hosts` file is updated
 with the linked container's name.
 
-> **Note** Since Docker may live update the container's `/etc/hosts` file, there
+> **Note** Since Docker may live update the container's `/data/data/hilled.pwnterm/files/usr/etc/hosts` file, there
 may be situations when processes inside the container can end up reading an
-empty or incomplete `/etc/hosts` file. In most cases, retrying the read again
+empty or incomplete `/data/data/hilled.pwnterm/files/usr/etc/hosts` file. In most cases, retrying the read again
 should fix the problem.
 
 

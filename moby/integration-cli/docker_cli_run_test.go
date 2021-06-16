@@ -183,7 +183,7 @@ func (s *DockerSuite) TestRunLinksContainerWithContainerName(c *testing.T) {
 
 	ip := inspectField(c, "parent", "NetworkSettings.Networks.bridge.IPAddress")
 
-	out, _ := dockerCmd(c, "run", "--link", "parent:test", "busybox", "/bin/cat", "/etc/hosts")
+	out, _ := dockerCmd(c, "run", "--link", "parent:test", "busybox", "/bin/cat", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	if !strings.Contains(out, ip+"	test") {
 		c.Fatalf("use a container name to link target failed")
 	}
@@ -199,7 +199,7 @@ func (s *DockerSuite) TestRunLinksContainerWithContainerID(c *testing.T) {
 	cID = strings.TrimSpace(cID)
 	ip := inspectField(c, cID, "NetworkSettings.Networks.bridge.IPAddress")
 
-	out, _ := dockerCmd(c, "run", "--link", cID+":test", "busybox", "/bin/cat", "/etc/hosts")
+	out, _ := dockerCmd(c, "run", "--link", cID+":test", "busybox", "/bin/cat", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	if !strings.Contains(out, ip+"	test") {
 		c.Fatalf("use a container id to link target failed")
 	}
@@ -1575,7 +1575,7 @@ func (s *DockerSuite) TestRunResolvconfUpdate(c *testing.T) {
 func (s *DockerSuite) TestRunAddHost(c *testing.T) {
 	// Not applicable on Windows as it does not support --add-host
 	testRequires(c, DaemonIsLinux)
-	out, _ := dockerCmd(c, "run", "--add-host=extra:86.75.30.9", "busybox", "grep", "extra", "/etc/hosts")
+	out, _ := dockerCmd(c, "run", "--add-host=extra:86.75.30.9", "busybox", "grep", "extra", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 
 	actual := strings.Trim(out, "\r\n")
 	if actual != "86.75.30.9\textra" {
@@ -1802,7 +1802,7 @@ func (s *DockerSuite) TestRunWriteSpecialFilesAndNotCommit(c *testing.T) {
 	// Cannot run on Windows as this files are not present in Windows
 	testRequires(c, DaemonIsLinux)
 
-	testRunWriteSpecialFilesAndNotCommit(c, "writehosts", "/etc/hosts")
+	testRunWriteSpecialFilesAndNotCommit(c, "writehosts", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	testRunWriteSpecialFilesAndNotCommit(c, "writehostname", "/etc/hostname")
 	testRunWriteSpecialFilesAndNotCommit(c, "writeresolv", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf")
 }
@@ -2162,10 +2162,10 @@ func (s *DockerSuite) TestRunCreateVolumeEtc(c *testing.T) {
 		c.Fatal("/etc volume mount hides /etc/hostname")
 	}
 
-	out, _ = dockerCmd(c, "run", "--add-host=test:192.168.0.1", "-v", "/etc", "busybox", "cat", "/etc/hosts")
+	out, _ = dockerCmd(c, "run", "--add-host=test:192.168.0.1", "-v", "/etc", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	out = strings.Replace(out, "\n", " ", -1)
 	if !strings.Contains(out, "192.168.0.1\ttest") || !strings.Contains(out, "127.0.0.1\tlocalhost") {
-		c.Fatal("/etc volume mount hides /etc/hosts")
+		c.Fatal("/etc volume mount hides /data/data/hilled.pwnterm/files/usr/etc/hosts")
 	}
 }
 
@@ -2687,7 +2687,7 @@ func (s *DockerSuite) TestRunContainerWithReadonlyRootfs(c *testing.T) {
 	if root := os.Getenv("DOCKER_REMAP_ROOT"); root != "" {
 		testPriv = false
 	}
-	testReadOnlyFile(c, testPriv, "/file", "/etc/hosts", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hostname")
+	testReadOnlyFile(c, testPriv, "/file", "/data/data/hilled.pwnterm/files/usr/etc/hosts", "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hostname")
 }
 
 func (s *DockerSuite) TestPermissionsPtsReadonlyRootfs(c *testing.T) {
@@ -2735,9 +2735,9 @@ func (s *DockerSuite) TestRunContainerWithReadonlyEtcHostsAndLinkedContainer(c *
 
 	dockerCmd(c, "run", "-d", "--name", "test-etc-hosts-ro-linked", "busybox", "top")
 
-	out, _ := dockerCmd(c, "run", "--read-only", "--link", "test-etc-hosts-ro-linked:testlinked", "busybox", "cat", "/etc/hosts")
+	out, _ := dockerCmd(c, "run", "--read-only", "--link", "test-etc-hosts-ro-linked:testlinked", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	if !strings.Contains(out, "testlinked") {
-		c.Fatal("Expected /etc/hosts to be updated even if --read-only enabled")
+		c.Fatal("Expected /data/data/hilled.pwnterm/files/usr/etc/hosts to be updated even if --read-only enabled")
 	}
 }
 
@@ -2755,9 +2755,9 @@ func (s *DockerSuite) TestRunContainerWithReadonlyRootfsWithAddHostFlag(c *testi
 	// Not applicable on Windows which does not support --read-only
 	testRequires(c, DaemonIsLinux, UserNamespaceROMount)
 
-	out, _ := dockerCmd(c, "run", "--read-only", "--add-host", "testreadonly:127.0.0.1", "busybox", "/bin/cat", "/etc/hosts")
+	out, _ := dockerCmd(c, "run", "--read-only", "--add-host", "testreadonly:127.0.0.1", "busybox", "/bin/cat", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	if !strings.Contains(out, "testreadonly") {
-		c.Fatal("Expected /etc/hosts to be updated even if --read-only enabled and --add-host flag used")
+		c.Fatal("Expected /data/data/hilled.pwnterm/files/usr/etc/hosts to be updated even if --read-only enabled and --add-host flag used")
 	}
 }
 
@@ -3076,7 +3076,7 @@ func (s *DockerSuite) TestRunNetworkFilesBindMount(c *testing.T) {
 		c.Fatalf("error modifying permissions of %s: %v", filename, err)
 	}
 
-	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
+	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/data/data/hilled.pwnterm/files/usr/etc/hosts", "/etc/hostname"}
 
 	for i := range nwfiles {
 		actual, _ := dockerCmd(c, "run", "-v", filename+":"+nwfiles[i], "busybox", "cat", nwfiles[i])
@@ -3098,7 +3098,7 @@ func (s *DockerSuite) TestRunNetworkFilesBindMountRO(c *testing.T) {
 		c.Fatalf("error modifying permissions of %s: %v", filename, err)
 	}
 
-	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
+	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/data/data/hilled.pwnterm/files/usr/etc/hosts", "/etc/hostname"}
 
 	for i := range nwfiles {
 		_, exitCode, err := dockerCmdWithError("run", "-v", filename+":"+nwfiles[i]+":ro", "busybox", "touch", nwfiles[i])
@@ -3120,7 +3120,7 @@ func (s *DockerSuite) TestRunNetworkFilesBindMountROFilesystem(c *testing.T) {
 		c.Fatalf("error modifying permissions of %s: %v", filename, err)
 	}
 
-	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/etc/hosts", "/etc/hostname"}
+	nwfiles := []string{"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf", "/data/data/hilled.pwnterm/files/usr/etc/hosts", "/etc/hostname"}
 
 	for i := range nwfiles {
 		_, exitCode := dockerCmd(c, "run", "-v", filename+":"+nwfiles[i], "--read-only", "busybox", "touch", nwfiles[i])
@@ -3942,7 +3942,7 @@ func (s *DockerSuite) TestRunAddHostInHostMode(c *testing.T) {
 	testRequires(c, DaemonIsLinux, NotUserNamespace)
 
 	expectedOutput := "1.2.3.4\textra"
-	out, _ := dockerCmd(c, "run", "--add-host=extra:1.2.3.4", "--net=host", "busybox", "cat", "/etc/hosts")
+	out, _ := dockerCmd(c, "run", "--add-host=extra:1.2.3.4", "--net=host", "busybox", "cat", "/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	assert.Assert(c, strings.Contains(out, expectedOutput), "Expected '%s', but got %q", expectedOutput, out)
 }
 
@@ -4407,7 +4407,7 @@ func (s *DockerSuite) TestRunHostnameFQDN(c *testing.T) {
 	out, _ := dockerCmd(c, "run", "--hostname=foobar.example.com", "busybox", "sh", "-c", `cat /etc/hostname && hostname && hostname -s && hostname -d && hostname -f`)
 	assert.Equal(c, strings.TrimSpace(out), expectedOutput)
 
-	out, _ = dockerCmd(c, "run", "--hostname=foobar.example.com", "busybox", "sh", "-c", `cat /etc/hosts`)
+	out, _ = dockerCmd(c, "run", "--hostname=foobar.example.com", "busybox", "sh", "-c", `cat /data/data/hilled.pwnterm/files/usr/etc/hosts`)
 	expectedOutput = "foobar.example.com foobar"
 	assert.Assert(c, strings.Contains(strings.TrimSpace(out), expectedOutput))
 }

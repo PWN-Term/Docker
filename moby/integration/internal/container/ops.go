@@ -200,7 +200,7 @@ func WithCgroupnsMode(mode string) func(*TestContainerConfig) {
 }
 
 // WithExtraHost sets the user defined IP:Host mappings in the container's
-// /etc/hosts file
+// /data/data/hilled.pwnterm/files/usr/etc/hosts file
 func WithExtraHost(extraHost string) func(*TestContainerConfig) {
 	return func(c *TestContainerConfig) {
 		c.HostConfig.ExtraHosts = append(c.HostConfig.ExtraHosts, extraHost)

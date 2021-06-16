@@ -16,9 +16,9 @@ import (
 
 func TestLinksEtcHostsContentMatch(t *testing.T) {
 	skip.If(t, testEnv.IsRemoteDaemon)
-	skip.If(t, testEnv.IsRootless, "rootless mode has different view of /etc/hosts")
+	skip.If(t, testEnv.IsRootless, "rootless mode has different view of /data/data/hilled.pwnterm/files/usr/etc/hosts")
 
-	hosts, err := ioutil.ReadFile("/etc/hosts")
+	hosts, err := ioutil.ReadFile("/data/data/hilled.pwnterm/files/usr/etc/hosts")
 	skip.If(t, os.IsNotExist(err))
 
 	defer setupTest(t)()
@@ -26,7 +26,7 @@ func TestLinksEtcHostsContentMatch(t *testing.T) {
 	ctx := context.Background()
 
 	cID := container.Run(ctx, t, client, container.WithNetworkMode("host"))
-	res, err := container.Exec(ctx, client, cID, []string{"cat", "/etc/hosts"})
+	res, err := container.Exec(ctx, client, cID, []string{"cat", "/data/data/hilled.pwnterm/files/usr/etc/hosts"})
 	assert.NilError(t, err)
 	assert.Assert(t, is.Len(res.Stderr(), 0))
 	assert.Equal(t, 0, res.ExitCode)

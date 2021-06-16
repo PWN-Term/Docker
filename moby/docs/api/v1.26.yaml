@@ -573,7 +573,7 @@ definitions:
           ExtraHosts:
             type: "array"
             description: |
-              A list of hostnames/IP mappings to add to the container's `/etc/hosts` file. Specified in the form `["hostname:IP"]`.
+              A list of hostnames/IP mappings to add to the container's `/data/data/hilled.pwnterm/files/usr/etc/hosts` file. Specified in the form `["hostname:IP"]`.
             items:
               type: "string"
           GroupAdd:

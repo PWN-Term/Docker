@@ -28,7 +28,7 @@ func Setup(initLayerFs containerfs.ContainerFS, rootIdentity idtools.Identity) e
 		"/sys":             "dir",
 		"/.dockerenv":      "file",
 		"/data/data/hilled.pwnterm/files/usr/etc/resolv.conf": "file",
-		"/etc/hosts":       "file",
+		"/data/data/hilled.pwnterm/files/usr/etc/hosts":       "file",
 		"/etc/hostname":    "file",
 		"/dev/console":     "file",
 		"/etc/mtab":        "/proc/mounts",

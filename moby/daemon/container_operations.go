@@ -230,7 +230,7 @@ func (daemon *Daemon) buildSandboxOptions(container *container.Container) ([]lib
 		}
 
 		_, alias = path.Split(alias)
-		logrus.Debugf("Update /etc/hosts of %s for alias %s with ip %s", parent.ID, alias, bridgeSettings.IPAddress)
+		logrus.Debugf("Update /data/data/hilled.pwnterm/files/usr/etc/hosts of %s for alias %s with ip %s", parent.ID, alias, bridgeSettings.IPAddress)
 		sboxOptions = append(sboxOptions, libnetwork.OptionParentUpdate(
 			parent.ID,
 			alias,

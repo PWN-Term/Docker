@@ -471,12 +471,12 @@ func TestTarStreamStability(t *testing.T) {
 	defer cleanup()
 
 	files1 := []FileApplier{
-		newTestFile("/etc/hosts", []byte("mydomain 10.0.0.1"), 0644),
+		newTestFile("/data/data/hilled.pwnterm/files/usr/etc/hosts", []byte("mydomain 10.0.0.1"), 0644),
 		newTestFile("/etc/profile", []byte("PATH=/usr/bin"), 0644),
 	}
 	addedFile := newTestFile("/etc/shadow", []byte("root:::::::"), 0644)
 	files2 := []FileApplier{
-		newTestFile("/etc/hosts", []byte("mydomain 10.0.0.2"), 0644),
+		newTestFile("/data/data/hilled.pwnterm/files/usr/etc/hosts", []byte("mydomain 10.0.0.2"), 0644),
 		newTestFile("/etc/profile", []byte("PATH=/usr/bin"), 0664),
 		newTestFile("/root/.bashrc", []byte("PATH=/usr/sbin:/usr/bin"), 0644),
 	}

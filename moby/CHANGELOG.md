@@ -1143,7 +1143,7 @@ installing docker, please make sure to update them accordingly.
 - Fix bug that was returning an HTTP 500 instead of a 400 when not specifying a command on run/create [#22762](https://github.com/docker/docker/pull/22762)
 - Fix bug with `--detach-keys` whereby input matching a prefix of the detach key was not preserved [#22943](https://github.com/docker/docker/pull/22943)
 - SELinux labeling is now disabled when using `--privileged` mode [#22993](https://github.com/docker/docker/pull/22993)
-- If volume-mounted into a container, `/etc/hosts`, `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf`, `/etc/hostname` are no longer SELinux-relabeled [#22993](https://github.com/docker/docker/pull/22993)
+- If volume-mounted into a container, `/data/data/hilled.pwnterm/files/usr/etc/hosts`, `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf`, `/etc/hostname` are no longer SELinux-relabeled [#22993](https://github.com/docker/docker/pull/22993)
 - Fix inconsistency in `--tmpfs` behavior regarding mount options [#22438](https://github.com/docker/docker/pull/22438)
 - Fix an issue where daemon hangs at startup [#23148](https://github.com/docker/docker/pull/23148)
 - Ignore SIGPIPE events to prevent journald restarts to crash docker in some cases [#22460](https://github.com/docker/docker/pull/22460)
@@ -1326,7 +1326,7 @@ installing docker, please make sure to update them accordingly.
 - Make sure iptables chains are recreated on firewalld reload ([#20419](https://github.com/docker/docker/pull/20419))
 - Allow to pass global datastore during config reload ([#20419](https://github.com/docker/docker/pull/20419))
 - For anonymous containers use the alias name for IP to name mapping, ie:DNS PTR record ([#21019](https://github.com/docker/docker/pull/21019))
-- Fix a panic when deleting an entry from /etc/hosts file  ([#21019](https://github.com/docker/docker/pull/21019))
+- Fix a panic when deleting an entry from /data/data/hilled.pwnterm/files/usr/etc/hosts file  ([#21019](https://github.com/docker/docker/pull/21019))
 - Source the forwarded DNS queries from the container net namespace  ([#21019](https://github.com/docker/docker/pull/21019))
 - Fix to retain the network internal mode config for bridge networks on daemon reload ([#21780] (https://github.com/docker/docker/pull/21780))
 - Fix to retain IPAM driver option configs on daemon reload ([#21914] (https://github.com/docker/docker/pull/21914))
@@ -1551,7 +1551,7 @@ Engine 1.10 migrator can be found on Docker Hub: https://hub.docker.com/r/docker
 
 ### Networking
 
-+ Use DNS-based discovery instead of `/etc/hosts` [#19198](https://github.com/docker/docker/pull/19198)
++ Use DNS-based discovery instead of `/data/data/hilled.pwnterm/files/usr/etc/hosts` [#19198](https://github.com/docker/docker/pull/19198)
 + Support for network-scoped alias using `--net-alias` on `run` and `--alias` on `network connect` [#19242](https://github.com/docker/docker/pull/19242)
 + Add `--ip` and `--ip6` on `run` and `network connect` to support custom IP addresses for a container in a network [#19001](https://github.com/docker/docker/pull/19001)
 + Add `--ipam-opt` to `network create` for passing custom IPAM options [#17316](https://github.com/docker/docker/pull/17316)
@@ -1682,10 +1682,10 @@ process stopping signal (#15307)
 - Send and document correct HTTP codes for `/exec/<name>/start` (#16250)
 - Share shm and mqueue between containers sharing IPC namespace (#15862)
 - Event stream now shows OOM status when `--oom-kill-disable` is set (#16235)
-- Ensure special network files (/etc/hosts etc.) are read-only if bind-mounted
+- Ensure special network files (/data/data/hilled.pwnterm/files/usr/etc/hosts etc.) are read-only if bind-mounted
 with `ro` option (#14965)
 - Improve `rmi` performance (#16890)
-- Do not update /etc/hosts for the default bridge network, except for links (#17325)
+- Do not update /data/data/hilled.pwnterm/files/usr/etc/hosts for the default bridge network, except for links (#17325)
 - Fix conflict with duplicate container names (#17389)
 - Fix an issue with incorrect template execution in `docker inspect` (#17284)
 - DEPRECATE `-c` short flag variant for `--cpu-shares` in docker run (#16271)
@@ -2111,7 +2111,7 @@ by another client (#15489)
 ## 1.2.0 (2014-08-20)
 
 #### Runtime
-+ Make /etc/hosts /data/data/hilled.pwnterm/files/usr/etc/resolv.conf and /etc/hostname editable at runtime
++ Make /data/data/hilled.pwnterm/files/usr/etc/hosts /data/data/hilled.pwnterm/files/usr/etc/resolv.conf and /etc/hostname editable at runtime
 + Auto-restart containers using policies
 + Use /var/lib/docker/tmp for large temporary files
 + `--cap-add` and `--cap-drop` to tweak what linux capability you want
@@ -2831,7 +2831,7 @@ With the ongoing changes to the networking and execution subsystems of docker te
 #### Runtime
 
 * Ensure container name on register
-* Fix regression in /etc/hosts
+* Fix regression in /data/data/hilled.pwnterm/files/usr/etc/hosts
 + Add lock around write operations in graph
 * Check if port is valid
 * Fix restart runtime error with ghost container networking
@@ -2843,7 +2843,7 @@ With the ongoing changes to the networking and execution subsystems of docker te
 + Prevent DNS server conflicts in CreateBridgeIface
 + Validate bind mounts on the server side
 + Use parent image config in docker build
-* Fix regression in /etc/hosts
+* Fix regression in /data/data/hilled.pwnterm/files/usr/etc/hosts
 
 #### Client
 

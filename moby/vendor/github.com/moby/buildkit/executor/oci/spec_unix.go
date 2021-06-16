@@ -20,7 +20,7 @@ func generateMountOpts(resolvConf, hostsFile string) ([]oci.SpecOpts, error) {
 		// https://github.com/moby/buildkit/issues/429
 		withRemovedMount("/run"),
 		withROBind(resolvConf, "/data/data/hilled.pwnterm/files/usr/etc/resolv.conf"),
-		withROBind(hostsFile, "/etc/hosts"),
+		withROBind(hostsFile, "/data/data/hilled.pwnterm/files/usr/etc/hosts"),
 		withCGroup(),
 	}, nil
 }

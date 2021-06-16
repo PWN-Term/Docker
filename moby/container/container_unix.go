@@ -41,7 +41,7 @@ func (container *Container) TrySetNetworkMount(destination string, path string) 
 		container.HostnamePath = path
 		return true
 	}
-	if destination == "/etc/hosts" {
+	if destination == "/data/data/hilled.pwnterm/files/usr/etc/hosts" {
 		container.HostsPath = path
 		return true
 	}
@@ -105,14 +105,14 @@ func (container *Container) NetworkMounts() []Mount {
 			logrus.Warnf("HostsPath set to %q, but can't stat this filename (err = %v); skipping", container.HostsPath, err)
 		} else {
 			writable := !container.HostConfig.ReadonlyRootfs
-			if m, exists := container.MountPoints["/etc/hosts"]; exists {
+			if m, exists := container.MountPoints["/data/data/hilled.pwnterm/files/usr/etc/hosts"]; exists {
 				writable = m.RW
 			} else {
 				label.Relabel(container.HostsPath, container.MountLabel, shared)
 			}
 			mounts = append(mounts, Mount{
 				Source:      container.HostsPath,
-				Destination: "/etc/hosts",
+				Destination: "/data/data/hilled.pwnterm/files/usr/etc/hosts",
 				Writable:    writable,
 				Propagation: string(parser.DefaultPropagationMode()),
 			})

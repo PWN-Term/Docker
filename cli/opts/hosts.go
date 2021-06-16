@@ -25,7 +25,7 @@ const (
 	// DefaultNamedPipe defines the default named pipe used by docker on Windows
 	defaultNamedPipe = `//./pipe/docker_engine`
 	// hostGatewayName defines a special string which users can append to --add-host
-	// to add an extra entry in /etc/hosts that maps host.docker.internal to the host IP
+	// to add an extra entry in /data/data/hilled.pwnterm/files/usr/etc/hosts that maps host.docker.internal to the host IP
 	// TODO Consider moving the hostGatewayName constant defined in docker at
 	// github.com/docker/docker/daemon/network/constants.go outside of the "daemon"
 	// package, so that the CLI can consume it.

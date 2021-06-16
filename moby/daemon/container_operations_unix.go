@@ -391,18 +391,18 @@ func serviceDiscoveryOnDefaultNetwork() bool {
 func (daemon *Daemon) setupPathsAndSandboxOptions(container *container.Container, sboxOptions *[]libnetwork.SandboxOption) error {
 	var err error
 
-	// Set the correct paths for /etc/hosts and /data/data/hilled.pwnterm/files/usr/etc/resolv.conf, based on the
+	// Set the correct paths for /data/data/hilled.pwnterm/files/usr/etc/hosts and /data/data/hilled.pwnterm/files/usr/etc/resolv.conf, based on the
 	// networking-mode of the container. Note that containers with "container"
 	// networking are already handled in "initializeNetworking()" before we reach
 	// this function, so do not have to be accounted for here.
 	switch {
 	case container.HostConfig.NetworkMode.IsHost():
 		// In host-mode networking, the container does not have its own networking
-		// namespace, so both `/etc/hosts` and `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf` should be the same
+		// namespace, so both `/data/data/hilled.pwnterm/files/usr/etc/hosts` and `/data/data/hilled.pwnterm/files/usr/etc/resolv.conf` should be the same
 		// as on the host itself. The container gets a copy of these files.
 		*sboxOptions = append(
 			*sboxOptions,
-			libnetwork.OptionOriginHostsPath("/etc/hosts"),
+			libnetwork.OptionOriginHostsPath("/data/data/hilled.pwnterm/files/usr/etc/hosts"),
 			libnetwork.OptionOriginResolvConfPath("/data/data/hilled.pwnterm/files/usr/etc/resolv.conf"),
 		)
 	case container.HostConfig.NetworkMode.IsUserDefined():
@@ -423,7 +423,7 @@ func (daemon *Daemon) setupPathsAndSandboxOptions(container *container.Container
 		)
 	default:
 		// For other situations, such as the default bridge network, container
-		// discovery / name resolution is handled through /etc/hosts, and no
+		// discovery / name resolution is handled through /data/data/hilled.pwnterm/files/usr/etc/hosts, and no
 		// embedded DNS server is available. Without the embedded DNS, we
 		// cannot use local DNS servers on the host (for example, if DNSMasq or
 		// systemd-resolvd is used). If systemd-resolvd is used, we try to

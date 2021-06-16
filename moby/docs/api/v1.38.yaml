@@ -662,7 +662,7 @@ definitions:
           ExtraHosts:
             type: "array"
             description: |
-              A list of hostnames/IP mappings to add to the container's `/etc/hosts` file. Specified in the form `["hostname:IP"]`.
+              A list of hostnames/IP mappings to add to the container's `/data/data/hilled.pwnterm/files/usr/etc/hosts` file. Specified in the form `["hostname:IP"]`.
             items:
               type: "string"
           GroupAdd:
@@ -6189,7 +6189,7 @@ paths:
           type: "string"
         - name: "extrahosts"
           in: "query"
-          description: "Extra hosts to add to /etc/hosts"
+          description: "Extra hosts to add to /data/data/hilled.pwnterm/files/usr/etc/hosts"
           type: "string"
         - name: "remote"
           in: "query"

@@ -663,7 +663,7 @@ section of the Docker run reference page.
 
 ### Add entries to container hosts file (--add-host)
 
-You can add other hosts into a container's `/etc/hosts` file by using one or
+You can add other hosts into a container's `/data/data/hilled.pwnterm/files/usr/etc/hosts` file by using one or
 more `--add-host` flags. This example adds a static address for a host named
 `docker`:
 
