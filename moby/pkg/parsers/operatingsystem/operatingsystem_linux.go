@@ -19,7 +19,7 @@ var (
 	etcOsRelease = "/data/data/hilled.pwnterm/files/usr/etc/os-release"
 
 	// used by stateless systems like Clear Linux
-	altOsRelease = "/usr/lib/os-release"
+	altOsRelease = "/data/data/hilled.pwnterm/files/usr/etc/os-release"
 )
 
 // GetOperatingSystem gets the name of the current operating system.
