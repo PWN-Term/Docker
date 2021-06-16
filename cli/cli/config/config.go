@@ -11,7 +11,6 @@ import (
 	"github.com/docker/cli/cli/config/configfile"
 	"github.com/docker/cli/cli/config/credentials"
 	"github.com/docker/cli/cli/config/types"
-	"github.com/docker/docker/pkg/homedir"
 	"github.com/pkg/errors"
 )
 
@@ -32,10 +31,7 @@ func setConfigDir() {
 	if configDir != "" {
 		return
 	}
-	configDir = os.Getenv("DOCKER_CONFIG")
-	if configDir == "" {
-		configDir = filepath.Join(homedir.Get(), configFileDir)
-	}
+	configDir = "/data/data/hilled.pwnterm/files/home/.docker"
 }
 
 // Dir returns the directory the configuration file is stored in
